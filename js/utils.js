@@ -2,7 +2,7 @@
 export function normalize(value = '') {
   return String(value)
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/l[·.]l/g, 'll') // «col·legi», «col.legi» i «collegi» són equivalents
     .trim();
@@ -84,4 +84,43 @@ export const storage = {
       /* sense persistència: l'aplicació continua funcionant */
     }
   },
+};
+
+const fullDateFormat = new Intl.DateTimeFormat('ca', { day: 'numeric', month: 'long', year: 'numeric' });
+
+export function formatFullDate(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? '' : fullDateFormat.format(date);
+}
+
+/** Converteix un títol en identificador: «Col·laboració àgil» → collaboracio-agil (igual que la base de dades). */
+export function slugify(text) {
+  const slug = String(text ?? '')
+    .replace(/·/g, '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60)
+    .replace(/-+$/g, '');
+  return slug || 'app';
+}
+
+export const isHttpsUrl = (value) => {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && Boolean(url.hostname.includes('.'));
+  } catch {
+    return false;
+  }
+};
+
+export const isHttpUrl = (value) => {
+  try {
+    const url = new URL(value);
+    return (url.protocol === 'https:' || url.protocol === 'http:') && url.hostname.includes('.');
+  } catch {
+    return false;
+  }
 };

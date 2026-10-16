@@ -13,27 +13,44 @@ Repositori obert d'aplicacions educatives creades i recomanades per la comunitat
 - **Tema clar i fosc**, que segueix el sistema o es pot triar manualment.
 - **Responsive**, amb calaix de filtres a mòbil.
 - **Accessible**: navegació amb teclat (`/` per cercar), etiquetes ARIA, respecte per `prefers-reduced-motion`.
+- **Comptes de docents**: accés sense contrasenya (enllaç per correu), formulari amb vista prèvia en directe i pàgina «Les meves aplicacions» per seguir l'estat de revisió, editar i esborrar.
+- **Moderació**: tota aplicació nova o editada queda pendent fins que un moderador l'aprova.
 - **Privacitat**: sense galetes, analítica ni peticions a tercers. Política de seguretat de contingut (CSP) estricta.
+
+## Arquitectura
+
+- **Web estàtica** a GitHub Pages, sense procés de compilació.
+- **Supabase** (PostgreSQL a la UE) per al catàleg, els comptes i la moderació. Les regles d'accés són a la base de dades (Row Level Security): vegeu [supabase/sql/](supabase/sql/README.md).
+- **Còpia local** `data/apps.json`: si Supabase no respon, la web la fa servir automàticament.
 
 ## Estructura
 
 ```
-├── index.html              Pàgina única
+├── index.html              Catàleg
+├── compte.html             Accés i «Les meves aplicacions»
+├── proposa.html            Formulari per afegir o editar una aplicació
 ├── css/styles.css          Estils (tokens, components, responsive)
+├── assets/icons.svg        Icones (sprite SVG)
 ├── js/
-│   ├── main.js             Arrencada, estat i esdeveniments
+│   ├── main.js             Catàleg: arrencada, estat i esdeveniments
+│   ├── compte.js           Accés, perfil i llistat propi
+│   ├── proposa.js          Formulari, validació i vista prèvia
+│   ├── auth.js             Client de Supabase (es carrega sota demanda)
+│   ├── data-source.js      Lectura del catàleg (Supabase o còpia local)
+│   ├── config.js           URL i clau pública de Supabase
+│   ├── shell.js            Capçalera, tema i avisos compartits
 │   ├── catalog.js          Cerca, filtres, recomptes i ordenació (funcions pures)
 │   ├── render.js           Generació del DOM i portades generatives
 │   ├── store.js            Favorits i preferències (localStorage)
 │   ├── url-state.js        Sincronització amb la URL
 │   ├── theme-init.js       Aplica el tema abans de pintar
 │   └── utils.js
-├── data/apps.json          Catàleg i taxonomies
-├── scripts/validate-apps.mjs   Validador del catàleg
+├── vendor/                 supabase-js (versió fixada, vegeu vendor/README.md)
+├── supabase/sql/           Scripts de la base de dades, numerats
+├── data/apps.json          Còpia local del catàleg
+├── scripts/validate-apps.mjs   Validador de la còpia local
 └── .github/                Plantilles d'issues i PR, validació automàtica
 ```
-
-No hi ha dependències ni procés de compilació.
 
 ## Executar en local
 
@@ -49,10 +66,9 @@ I obre <http://localhost:8000>.
 
 ## Afegir una aplicació
 
-Hi ha dues vies:
+La via principal és la web: **Afegeix la teva app** → entra amb el teu correu → omple el formulari. L'aplicació queda pendent fins que un moderador la publica.
 
-1. **Sense Git**: obre una [proposta d'aplicació](https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml) i omple el formulari.
-2. **Amb Git**: afegeix una entrada a `data/apps.json` i obre una *pull request*. Detalls a [CONTRIBUTING.md](CONTRIBUTING.md).
+Alternatives: obrir una [proposta a GitHub](https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml), o editar `data/apps.json` amb una *pull request* (aquest fitxer és la còpia de reserva). Detalls a [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```json
 {

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'; connect-src 'self' https://vvvsuksrsczuvmswmjaw.supabase.co; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="noindex">
+  <title>El meu compte · EducApps</title>
+  <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/theme-init.js"></script>
+  <script type="module" src="js/compte.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Salta al contingut</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="EducApps, inici">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="2" y="2" width="28" height="28" rx="8" class="logo-bg"/>
+          <path d="M9 23V9h14M9 16h9" class="logo-fg"/>
+          <circle cx="21.5" cy="21.5" r="2.5" class="logo-dot"/>
+        </svg>
+        <span class="brand-name">EducApps</span>
+      </a>
+      <nav class="header-nav" aria-label="Principal">
+        <a class="nav-btn" id="account-link" href="compte.html" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-user"/></svg>
+          <span class="nav-label">El meu compte</span>
+        </a>
+        <a class="nav-btn nav-btn-strong" href="proposa.html">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-plus"/></svg>
+          <span class="nav-label">Afegeix la teva app</span>
+        </a>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Canvia el tema de color">
+          <svg class="icon icon-sun" aria-hidden="true"><use href="assets/icons.svg#i-sun"/></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="assets/icons.svg#i-moon"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <p class="loading" id="loading">Carregant…</p>
+
+    <!-- Sense sessió: accés amb enllaç per correu -->
+    <section class="page page-narrow container" id="login-view" hidden aria-labelledby="login-title">
+      <div class="page-head">
+        <h1 id="login-title">Entra o crea el teu compte</h1>
+        <p class="page-lead">Amb un compte pots afegir les teves aplicacions al catàleg i editar-les quan vulguis. No cal contrasenya: t'enviarem un enllaç d'accés al correu.</p>
+      </div>
+
+      <div class="alert alert-error alert-spaced" id="login-error" role="alert" hidden></div>
+
+      <form class="panel form" id="login-form" novalidate>
+        <div class="field">
+          <label class="field-label" for="login-email">Correu electrònic</label>
+          <input class="input" type="email" id="login-email" name="email" autocomplete="email" inputmode="email" required placeholder="nom@exemple.cat" aria-describedby="login-email-error">
+          <p class="field-error" id="login-email-error"></p>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="login-submit">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-mail"/></svg>
+            Envia'm l'enllaç d'accés
+          </button>
+        </div>
+      </form>
+
+      <div class="panel" id="login-sent" hidden>
+        <h2 class="panel-title">Revisa el teu correu</h2>
+        <p class="panel-text">Hem enviat un enllaç d'accés a <strong id="login-sent-email"></strong>. Obre'l des d'aquest o des de qualsevol altre dispositiu. Si no el trobes en uns minuts, mira la carpeta de correu brossa.</p>
+        <button type="button" class="btn btn-outline" id="login-retry">Fes servir una altra adreça</button>
+      </div>
+
+      <p class="small-print">Només fem servir el correu per identificar-te. No el mostrem enlloc ni l'enviem a tercers.</p>
+    </section>
+
+    <!-- Amb sessió -->
+    <section class="page page-medium container" id="account-view" hidden aria-labelledby="account-title">
+      <div class="page-head page-head-row">
+        <div>
+          <h1 id="account-title">Les meves aplicacions</h1>
+          <p class="page-lead" id="account-email"></p>
+        </div>
+        <div class="page-actions">
+          <a class="btn btn-primary" href="proposa.html">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-plus"/></svg>
+            Afegeix una aplicació
+          </a>
+          <button type="button" class="btn btn-outline" id="logout">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-logout"/></svg>
+            Surt
+          </button>
+        </div>
+      </div>
+
+      <div class="alert alert-spaced" id="profile-reminder" hidden>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-user"/></svg>
+        <p>Afegeix el teu nom al perfil: el farem servir com a autoria per defecte de les teves aplicacions.</p>
+      </div>
+
+      <ul class="rows" id="my-apps" aria-label="Les meves aplicacions"></ul>
+
+      <div class="panel empty-panel" id="my-apps-empty" hidden>
+        <h2 class="empty-title">Encara no has afegit cap aplicació</h2>
+        <p class="empty-text">Comparteix amb altres docents les aplicacions que has creat. Les revisarem abans de publicar-les.</p>
+        <a class="btn btn-primary" href="proposa.html">Afegeix la primera</a>
+      </div>
+
+      <form class="panel form section-gap" id="profile-form" novalidate aria-labelledby="profile-title">
+        <div>
+          <h2 class="panel-title" id="profile-title">Perfil</h2>
+          <p class="panel-text">Aquestes dades no són públiques.</p>
+        </div>
+        <div class="field">
+          <label class="field-label" for="profile-nom">Nom i cognoms</label>
+          <input class="input" id="profile-nom" name="nom" autocomplete="name" maxlength="80" aria-describedby="profile-nom-error">
+          <p class="field-error" id="profile-nom-error"></p>
+        </div>
+        <div class="field">
+          <label class="field-label" for="profile-centre">Centre educatiu <span class="field-optional">Opcional</span></label>
+          <input class="input" id="profile-centre" name="centre" autocomplete="organization" maxlength="120">
+        </div>
+        <div class="field">
+          <label class="field-label" for="profile-web">Web o perfil professional <span class="field-optional">Opcional</span></label>
+          <input class="input" type="url" id="profile-web" name="web" inputmode="url" placeholder="https://" aria-describedby="profile-web-error">
+          <p class="field-error" id="profile-web-error"></p>
+        </div>
+        <div class="alert alert-error" id="profile-error" role="alert" hidden></div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-outline" id="profile-submit">Desa el perfil</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

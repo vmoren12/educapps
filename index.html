@@ -20,21 +20,6 @@
 <body>
   <a class="skip-link" href="#resultats">Salta als resultats</a>
 
-  <svg class="sprite" aria-hidden="true" focusable="false">
-    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
-    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19.5 12.6 12 20l-7.5-7.4a4.9 4.9 0 0 1 0-7 5 5 0 0 1 7.1 0l.4.4.4-.4a5 5 0 0 1 7.1 0 4.9 4.9 0 0 1 0 7Z"/></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
-    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
-    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></symbol>
-    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
-    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
-    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
-    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r=".6"/><circle cx="4.5" cy="12" r=".6"/><circle cx="4.5" cy="18" r=".6"/></symbol>
-    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></symbol>
-    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></symbol>
-    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-  </svg>
-
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="./" aria-label="EducApps, inici">
@@ -47,17 +32,21 @@
       </a>
       <nav class="header-nav" aria-label="Principal">
         <button type="button" class="nav-btn" id="fav-toggle" aria-pressed="false">
-          <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>
           <span class="nav-label">Favorits</span>
           <span class="badge" id="fav-count">0</span>
         </button>
-        <a class="nav-btn nav-btn-strong" id="propose-link" href="https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml" target="_blank" rel="noopener noreferrer">
-          <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>
-          <span class="nav-label">Proposa una aplicació</span>
+        <a class="nav-btn" id="account-link" href="compte.html">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-user"/></svg>
+          <span class="nav-label">Entra</span>
+        </a>
+        <a class="nav-btn nav-btn-strong" href="proposa.html">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-plus"/></svg>
+          <span class="nav-label">Afegeix la teva app</span>
         </a>
         <button type="button" class="icon-btn" id="theme-toggle" aria-label="Canvia el tema de color">
-          <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
-          <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+          <svg class="icon icon-sun" aria-hidden="true"><use href="assets/icons.svg#i-sun"/></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="assets/icons.svg#i-moon"/></svg>
         </button>
       </nav>
     </div>
@@ -71,7 +60,7 @@
 
       <form class="search" role="search" id="search-form">
         <label for="q" class="visually-hidden">Cerca aplicacions</label>
-        <svg class="search-icon" aria-hidden="true"><use href="#i-search"/></svg>
+        <svg class="search-icon" aria-hidden="true"><use href="assets/icons.svg#i-search"/></svg>
         <input type="search" id="q" name="q" placeholder="Cerca per nom, tema, etiqueta o autoria" autocomplete="off" spellcheck="false" enterkeyhint="search">
         <kbd class="search-kbd" aria-hidden="true">/</kbd>
       </form>
@@ -84,7 +73,7 @@
           <h2 id="filters-title" class="filters-title">Filtres</h2>
           <button type="button" class="link-btn" id="clear-filters">Esborra-ho tot</button>
           <button type="button" class="icon-btn filters-close" id="close-filters" aria-label="Tanca els filtres">
-            <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"/></svg>
           </button>
         </div>
         <div class="filters-body">
@@ -111,7 +100,7 @@
         <h2 id="results-title" class="visually-hidden">Resultats</h2>
         <div class="toolbar">
           <button type="button" class="btn btn-outline toolbar-filters" id="open-filters" aria-controls="filters" aria-expanded="false">
-            <svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-sliders"/></svg>
             Filtres
             <span class="badge" id="filters-count" hidden>0</span>
           </button>
@@ -127,10 +116,10 @@
             </div>
             <div class="segmented" role="group" aria-label="Visualització">
               <button type="button" class="icon-btn" data-view="graella" aria-pressed="true" aria-label="Vista de graella">
-                <svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>
+                <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-grid"/></svg>
               </button>
               <button type="button" class="icon-btn" data-view="llista" aria-pressed="false" aria-label="Vista de llista">
-                <svg class="icon" aria-hidden="true"><use href="#i-list"/></svg>
+                <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-list"/></svg>
               </button>
             </div>
           </div>
@@ -161,7 +150,7 @@
       </div>
       <ul class="footer-links">
         <li><a href="https://github.com/vmoren12/educapps/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Com contribuir</a></li>
-        <li><a href="https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml" target="_blank" rel="noopener noreferrer">Proposa una aplicació</a></li>
+        <li><a href="proposa.html">Afegeix la teva aplicació</a></li>
         <li><a href="https://github.com/vmoren12/educapps" target="_blank" rel="noopener noreferrer">Codi font</a></li>
       </ul>
       <p class="footer-note">Sense galetes ni seguiment. Els favorits es desen només al teu navegador.</p>
@@ -171,7 +160,7 @@
   <dialog class="dialog" id="app-dialog" aria-labelledby="dialog-title">
     <div class="dialog-cover" id="dialog-cover" aria-hidden="true"></div>
     <button type="button" class="icon-btn dialog-close" id="dialog-close" aria-label="Tanca">
-      <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+      <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"/></svg>
     </button>
     <div class="dialog-body">
       <p class="card-ambit" id="dialog-ambit"></p>
@@ -184,18 +173,18 @@
     <div class="dialog-actions">
       <a class="btn btn-primary" id="dialog-open" target="_blank" rel="noopener noreferrer">
         Obre l'aplicació
-        <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg>
       </a>
       <a class="btn btn-outline" id="dialog-code" target="_blank" rel="noopener noreferrer">
-        <svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-code"/></svg>
         Codi font
       </a>
       <span class="dialog-spacer"></span>
       <button type="button" class="icon-btn" id="dialog-share" aria-label="Copia l'enllaç a aquesta fitxa">
-        <svg class="icon" aria-hidden="true"><use href="#i-link"/></svg>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-link"/></svg>
       </button>
       <button type="button" class="icon-btn fav-btn" id="dialog-fav" aria-pressed="false" aria-label="Afegeix a favorits">
-        <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>
       </button>
     </div>
   </dialog>
@@ -216,10 +205,10 @@
           <p class="card-levels"></p>
           <div class="card-actions">
             <button type="button" class="icon-btn fav-btn" aria-pressed="false">
-              <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>
             </button>
             <a class="icon-btn card-open" target="_blank" rel="noopener noreferrer">
-              <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg>
             </a>
           </div>
         </div>

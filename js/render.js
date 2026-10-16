@@ -10,9 +10,9 @@ function svgEl(name, attrs = {}) {
   return el;
 }
 
-function icon(id) {
+export function icon(id) {
   const svg = svgEl('svg', { class: 'icon', 'aria-hidden': 'true' });
-  svg.append(svgEl('use', { href: `#${id}` }));
+  svg.append(svgEl('use', { href: `assets/icons.svg#${id}` }));
   return svg;
 }
 

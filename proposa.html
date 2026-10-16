@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'; connect-src 'self' https://vvvsuksrsczuvmswmjaw.supabase.co; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Afegeix la teva aplicació · EducApps</title>
+  <meta name="description" content="Comparteix amb la comunitat docent una aplicació educativa que hagis creat.">
+  <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/theme-init.js"></script>
+  <script type="module" src="js/proposa.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Salta al formulari</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="EducApps, inici">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="2" y="2" width="28" height="28" rx="8" class="logo-bg"/>
+          <path d="M9 23V9h14M9 16h9" class="logo-fg"/>
+          <circle cx="21.5" cy="21.5" r="2.5" class="logo-dot"/>
+        </svg>
+        <span class="brand-name">EducApps</span>
+      </a>
+      <nav class="header-nav" aria-label="Principal">
+        <a class="nav-btn" id="account-link" href="compte.html">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-user"/></svg>
+          <span class="nav-label">El meu compte</span>
+        </a>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Canvia el tema de color">
+          <svg class="icon icon-sun" aria-hidden="true"><use href="assets/icons.svg#i-sun"/></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="assets/icons.svg#i-moon"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page container" tabindex="-1">
+    <p class="loading" id="loading">Carregant…</p>
+
+    <div id="editor" hidden>
+      <div class="page-head">
+        <a class="back-link" href="compte.html">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-back"/></svg>
+          Les meves aplicacions
+        </a>
+        <h1 id="page-title">Afegeix la teva aplicació</h1>
+        <p class="page-lead" id="page-lead">Comparteix amb altres docents una aplicació que hagis creat. La revisarem abans de publicar-la al catàleg.</p>
+      </div>
+
+      <div class="alert alert-spaced" id="edit-notice" hidden>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-shield"/></svg>
+        <p>Quan desis els canvis, l'aplicació tornarà a revisió i no es mostrarà al catàleg fins que s'aprovi de nou.</p>
+      </div>
+
+      <div class="form-layout section-gap">
+        <form class="form" id="app-form" novalidate>
+          <fieldset class="form-section">
+            <legend>L'aplicació</legend>
+
+            <div class="field">
+              <label class="field-label" for="f-url">Enllaç públic</label>
+              <input class="input" type="url" id="f-url" name="url" inputmode="url" placeholder="https://usuari.github.io/la-meva-app/" required maxlength="500" aria-describedby="f-url-hint f-url-error">
+              <p class="field-hint" id="f-url-hint">Adreça on es pot fer servir: GitHub Pages, Netlify, Vercel, la web del centre…</p>
+              <p class="field-error" id="f-url-error"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="f-titol">Nom de l'aplicació</label>
+              <input class="input" id="f-titol" name="titol" required maxlength="80" placeholder="Fraccions visuals" aria-describedby="f-titol-error">
+              <p class="field-error" id="f-titol-error"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="f-descripcio">Descripció breu <span class="field-counter" id="f-descripcio-count" aria-live="polite"></span></label>
+              <textarea class="input" id="f-descripcio" name="descripcio" required maxlength="200" rows="3" placeholder="Què permet fer, en una o dues frases." aria-describedby="f-descripcio-hint f-descripcio-error"></textarea>
+              <p class="field-hint" id="f-descripcio-hint">Entre 20 i 160 caràcters. És el text de la targeta del catàleg.</p>
+              <p class="field-error" id="f-descripcio-error"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="f-detall">Descripció ampliada <span class="field-optional">Opcional</span></label>
+              <textarea class="input input-lg" id="f-detall" name="detall" maxlength="2000" rows="6" placeholder="Ús a l'aula, objectius d'aprenentatge, idees d'activitats…" aria-describedby="f-detall-count f-detall-error"></textarea>
+              <p class="field-hint"><span class="field-counter" id="f-detall-count"></span></p>
+              <p class="field-error" id="f-detall-error"></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>Classificació</legend>
+
+            <div class="field" role="radiogroup" aria-labelledby="f-ambit-label" aria-describedby="f-ambit-error">
+              <p class="field-label" id="f-ambit-label">Àmbit</p>
+              <div class="pills" id="f-ambit"></div>
+              <p class="field-error" id="f-ambit-error"></p>
+            </div>
+
+            <div class="field" role="group" aria-labelledby="f-nivells-label" aria-describedby="f-nivells-error">
+              <p class="field-label" id="f-nivells-label">Nivells educatius</p>
+              <div class="pills" id="f-nivells"></div>
+              <p class="field-error" id="f-nivells-error"></p>
+            </div>
+
+            <div class="field" role="group" aria-labelledby="f-idiomes-label" aria-describedby="f-idiomes-error">
+              <p class="field-label" id="f-idiomes-label">Idiomes</p>
+              <div class="pills" id="f-idiomes"></div>
+              <p class="field-error" id="f-idiomes-error"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="f-etiquetes">Etiquetes <span class="field-optional">Opcional</span></label>
+              <input class="input" id="f-etiquetes" name="etiquetes" placeholder="fraccions, càlcul mental, manipulables" aria-describedby="f-etiquetes-hint f-etiquetes-error">
+              <p class="field-hint" id="f-etiquetes-hint">Separades per comes. Màxim 10, de fins a 30 caràcters. Ajuden a trobar-la en la cerca.</p>
+              <p class="field-error" id="f-etiquetes-error"></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>Autoria</legend>
+
+            <div class="field">
+              <label class="field-label" for="f-autor-nom">Autoria</label>
+              <input class="input" id="f-autor-nom" name="autor_nom" required maxlength="120" autocomplete="name" placeholder="El teu nom, el del centre o el de l'equip" aria-describedby="f-autor-nom-hint f-autor-nom-error">
+              <p class="field-hint" id="f-autor-nom-hint">Es mostrarà públicament a la fitxa de l'aplicació.</p>
+              <p class="field-error" id="f-autor-nom-error"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="f-autor-url">Web de l'autoria <span class="field-optional">Opcional</span></label>
+              <input class="input" type="url" id="f-autor-url" name="autor_url" inputmode="url" placeholder="https://" maxlength="500" aria-describedby="f-autor-url-error">
+              <p class="field-error" id="f-autor-url-error"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="f-codi">Codi font <span class="field-optional">Opcional</span></label>
+              <input class="input" type="url" id="f-codi" name="codi" inputmode="url" placeholder="https://github.com/usuari/la-meva-app" maxlength="500" aria-describedby="f-codi-error">
+              <p class="field-error" id="f-codi-error"></p>
+            </div>
+          </fieldset>
+
+          <div class="alert alert-error" id="form-error" role="alert" hidden></div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="submit">Envia a revisió</button>
+            <a class="btn btn-outline" href="compte.html">Cancel·la</a>
+          </div>
+        </form>
+
+        <aside class="preview" aria-label="Vista prèvia">
+          <p class="preview-label">Vista prèvia</p>
+          <ul class="app-list" id="preview" data-view="graella"></ul>
+          <p class="preview-note">Així es veurà al catàleg. Clica la fletxa per comprovar que l'enllaç funciona.</p>
+        </aside>
+      </div>
+    </div>
+
+    <section class="page-narrow" id="sent" hidden aria-labelledby="sent-title" tabindex="-1">
+      <div class="panel">
+        <h1 class="panel-title" id="sent-title">Gràcies! L'hem rebuda</h1>
+        <p class="panel-text" id="sent-text">L'aplicació queda pendent de revisió. Quan es publiqui, apareixerà al catàleg i ho veuràs a «Les meves aplicacions».</p>
+        <div class="form-actions">
+          <a class="btn btn-primary" href="compte.html">Les meves aplicacions</a>
+          <a class="btn btn-outline" href="proposa.html">Afegeix-ne una altra</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <template id="tpl-card">
+    <li class="card">
+      <article class="card-inner">
+        <div class="card-cover" aria-hidden="true"></div>
+        <div class="card-body">
+          <p class="card-ambit"></p>
+          <h3 class="card-title"><button type="button" class="card-link"></button></h3>
+          <p class="card-desc"></p>
+          <p class="card-author"></p>
+        </div>
+        <div class="card-foot">
+          <p class="card-levels"></p>
+          <div class="card-actions">
+            <button type="button" class="icon-btn fav-btn" aria-pressed="false">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>
+            </button>
+            <a class="icon-btn card-open" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    </li>
+  </template>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

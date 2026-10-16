@@ -4,13 +4,13 @@ import { readUrlState, writeUrlState, appUrl } from './url-state.js';
 import { buildFacets, updateFacets, renderChips, createCard, setFavoriteButton, fillDialog } from './render.js';
 import { debounce, plural } from './utils.js';
 import { loadCatalogData } from './data-source.js';
+import { setupShell, showToast } from './shell.js';
 
 const PAGE_SIZE = 24;
 
 const $ = (selector) => document.querySelector(selector);
 
 const els = {
-  header: $('.site-header'),
   search: $('#q'),
   searchForm: $('#search-form'),
   heroStats: $('#hero-stats'),
@@ -35,8 +35,6 @@ const els = {
   loadMore: $('#load-more'),
   favToggle: $('#fav-toggle'),
   favCount: $('#fav-count'),
-  themeToggle: $('#theme-toggle'),
-  toast: $('#toast'),
   cardTemplate: $('#tpl-card'),
   skeletonTemplate: $('#tpl-skeleton'),
   dialog: {
@@ -68,8 +66,7 @@ let facetInputs;
 init();
 
 async function init() {
-  setupTheme();
-  setupHeader();
+  setupShell();
   applyView(preferences.view);
   showSkeletons();
 
@@ -340,31 +337,7 @@ function trapFocus(event) {
   }
 }
 
-/* Tema, capçalera i vista ---------------------------------------------------------- */
-
-function setupTheme() {
-  const root = document.documentElement;
-  const media = window.matchMedia('(prefers-color-scheme: dark)');
-  const resolved = () => root.dataset.theme || (media.matches ? 'dark' : 'light');
-  const sync = () => {
-    root.dataset.resolvedTheme = resolved();
-    els.themeToggle.setAttribute('aria-label', resolved() === 'dark' ? 'Activa el tema clar' : 'Activa el tema fosc');
-  };
-  media.addEventListener('change', sync);
-  els.themeToggle.addEventListener('click', () => {
-    const next = resolved() === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    try { localStorage.setItem('educapps:tema', next); } catch { /* sense persistència */ }
-    sync();
-  });
-  sync();
-}
-
-function setupHeader() {
-  const onScroll = () => els.header.classList.toggle('is-scrolled', window.scrollY > 8);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
+/* Vista ------------------------------------------------------------------------------ */
 
 function applyView(view) {
   els.list.dataset.view = view;
@@ -372,14 +345,6 @@ function applyView(view) {
 }
 
 /* Interacció ------------------------------------------------------------------------ */
-
-let toastTimer;
-function showToast(message) {
-  els.toast.textContent = message;
-  els.toast.classList.add('is-visible');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => els.toast.classList.remove('is-visible'), 2200);
-}
 
 function bindEvents() {
   const onSearch = debounce(() => {
