@@ -1,0 +1,116 @@
+name: Proposa una aplicació
+description: Suggereix una aplicació educativa per afegir al catàleg d'EducApps.
+title: "[Nova aplicació] "
+labels: ["nova-aplicacio"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gràcies per contribuir. Omple els camps següents i revisarem la proposta tan aviat com puguem.
+        Si et va bé treballar amb Git, també pots afegir-la directament amb una *pull request* (consulta CONTRIBUTING.md).
+
+  - type: input
+    id: titol
+    attributes:
+      label: Nom de l'aplicació
+      placeholder: "Ex.: Fraccions visuals"
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Enllaç públic
+      description: Adreça on es pot fer servir l'aplicació (GitHub Pages, Netlify, Vercel, web pròpia...).
+      placeholder: "https://usuari.github.io/fraccions/"
+    validations:
+      required: true
+
+  - type: input
+    id: autor
+    attributes:
+      label: Autoria
+      description: Nom de la persona, centre o col·lectiu que l'ha creat, i un enllaç opcional.
+      placeholder: "Nom Cognom — https://..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ambit
+    attributes:
+      label: Àmbit
+      options:
+        - Matemàtiques
+        - Ciències
+        - Llengües
+        - Ciències socials
+        - Tecnologia i programació
+        - Arts i música
+        - Eines d'aula
+    validations:
+      required: true
+
+  - type: dropdown
+    id: nivells
+    attributes:
+      label: Nivells educatius
+      multiple: true
+      options:
+        - Infantil
+        - Primària
+        - ESO
+        - Batxillerat
+        - FP
+    validations:
+      required: true
+
+  - type: dropdown
+    id: idiomes
+    attributes:
+      label: Idiomes disponibles
+      multiple: true
+      options:
+        - Català
+        - Castellà
+        - Anglès
+        - Francès
+    validations:
+      required: true
+
+  - type: textarea
+    id: descripcio
+    attributes:
+      label: Descripció breu
+      description: Una o dues frases (màxim 160 caràcters) que expliquin què permet fer.
+    validations:
+      required: true
+
+  - type: textarea
+    id: detall
+    attributes:
+      label: Descripció ampliada (opcional)
+      description: Ús a l'aula, objectius d'aprenentatge, idees de seqüència didàctica...
+
+  - type: input
+    id: etiquetes
+    attributes:
+      label: Etiquetes (opcional)
+      placeholder: "fraccions, càlcul mental, manipulables"
+
+  - type: input
+    id: codi
+    attributes:
+      label: Codi font (opcional)
+      placeholder: "https://github.com/usuari/fraccions"
+
+  - type: checkboxes
+    id: criteris
+    attributes:
+      label: Criteris
+      options:
+        - label: L'aplicació és d'accés gratuït i funciona al navegador.
+          required: true
+        - label: L'alumnat la pot fer servir sense haver de cedir dades personals innecessàries.
+          required: true
+        - label: Tinc permís per proposar-la (n'és l'autoria o és un recurs públic).
+          required: true

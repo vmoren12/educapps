@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>EducApps · Aplicacions educatives de la comunitat docent</title>
+  <meta name="description" content="Repositori obert d'aplicacions educatives creades i recomanades per docents. Cerca, filtra per àmbit, nivell i idioma, i desa les teves preferides.">
+  <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="EducApps">
+  <meta property="og:description" content="Aplicacions educatives creades per la comunitat docent.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/theme-init.js"></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#resultats">Salta als resultats</a>
+
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19.5 12.6 12 20l-7.5-7.4a4.9 4.9 0 0 1 0-7 5 5 0 0 1 7.1 0l.4.4.4-.4a5 5 0 0 1 7.1 0 4.9 4.9 0 0 1 0 7Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r=".6"/><circle cx="4.5" cy="12" r=".6"/><circle cx="4.5" cy="18" r=".6"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="EducApps, inici">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="2" y="2" width="28" height="28" rx="8" class="logo-bg"/>
+          <path d="M9 23V9h14M9 16h9" class="logo-fg"/>
+          <circle cx="21.5" cy="21.5" r="2.5" class="logo-dot"/>
+        </svg>
+        <span class="brand-name">EducApps</span>
+      </a>
+      <nav class="header-nav" aria-label="Principal">
+        <button type="button" class="nav-btn" id="fav-toggle" aria-pressed="false">
+          <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+          <span class="nav-label">Favorits</span>
+          <span class="badge" id="fav-count">0</span>
+        </button>
+        <a class="nav-btn nav-btn-strong" id="propose-link" href="https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml" target="_blank" rel="noopener noreferrer">
+          <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>
+          <span class="nav-label">Proposa una aplicació</span>
+        </a>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Canvia el tema de color">
+          <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero container" aria-labelledby="hero-title">
+      <p class="eyebrow">Repositori obert de la comunitat docent</p>
+      <h1 id="hero-title">Aplicacions educatives fetes per docents, per a l'aula</h1>
+      <p class="hero-lead">Recursos web lleugers, gratuïts i llestos per fer servir. Cerca per tema, filtra per àmbit, nivell o idioma i desa els que més t'agradin.</p>
+
+      <form class="search" role="search" id="search-form">
+        <label for="q" class="visually-hidden">Cerca aplicacions</label>
+        <svg class="search-icon" aria-hidden="true"><use href="#i-search"/></svg>
+        <input type="search" id="q" name="q" placeholder="Cerca per nom, tema, etiqueta o autoria" autocomplete="off" spellcheck="false" enterkeyhint="search">
+        <kbd class="search-kbd" aria-hidden="true">/</kbd>
+      </form>
+      <p class="hero-stats" id="hero-stats" aria-hidden="true"></p>
+    </section>
+
+    <div class="layout container">
+      <aside class="filters" id="filters" aria-labelledby="filters-title" tabindex="-1">
+        <div class="filters-head">
+          <h2 id="filters-title" class="filters-title">Filtres</h2>
+          <button type="button" class="link-btn" id="clear-filters">Esborra-ho tot</button>
+          <button type="button" class="icon-btn filters-close" id="close-filters" aria-label="Tanca els filtres">
+            <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+          </button>
+        </div>
+        <div class="filters-body">
+          <fieldset class="facet" data-facet="ambit">
+            <legend>Àmbit</legend>
+            <ul class="facet-list"></ul>
+          </fieldset>
+          <fieldset class="facet" data-facet="nivell">
+            <legend>Nivell educatiu</legend>
+            <ul class="facet-list"></ul>
+          </fieldset>
+          <fieldset class="facet" data-facet="idioma">
+            <legend>Idioma</legend>
+            <ul class="facet-list"></ul>
+          </fieldset>
+        </div>
+        <div class="filters-foot">
+          <button type="button" class="btn btn-primary btn-block" id="apply-filters">Mostra els resultats</button>
+        </div>
+      </aside>
+      <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+
+      <section class="results" id="resultats" aria-labelledby="results-title" tabindex="-1">
+        <h2 id="results-title" class="visually-hidden">Resultats</h2>
+        <div class="toolbar">
+          <button type="button" class="btn btn-outline toolbar-filters" id="open-filters" aria-controls="filters" aria-expanded="false">
+            <svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg>
+            Filtres
+            <span class="badge" id="filters-count" hidden>0</span>
+          </button>
+          <p class="result-count" id="result-count" role="status" aria-live="polite"></p>
+          <div class="toolbar-end">
+            <label class="visually-hidden" for="sort">Ordena per</label>
+            <div class="select">
+              <select id="sort">
+                <option value="rellevancia">Més rellevants</option>
+                <option value="recents">Més recents</option>
+                <option value="alfabetic">Alfabètic (A–Z)</option>
+              </select>
+            </div>
+            <div class="segmented" role="group" aria-label="Visualització">
+              <button type="button" class="icon-btn" data-view="graella" aria-pressed="true" aria-label="Vista de graella">
+                <svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>
+              </button>
+              <button type="button" class="icon-btn" data-view="llista" aria-pressed="false" aria-label="Vista de llista">
+                <svg class="icon" aria-hidden="true"><use href="#i-list"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <ul class="chips" id="active-filters" aria-label="Filtres actius"></ul>
+
+        <ul class="app-list" id="app-list" data-view="graella" aria-busy="true"></ul>
+
+        <div class="empty" id="empty-state" hidden>
+          <h3 class="empty-title" id="empty-title"></h3>
+          <p class="empty-text" id="empty-text"></p>
+          <button type="button" class="btn btn-outline" id="empty-reset">Esborra la cerca i els filtres</button>
+        </div>
+
+        <div class="load-more" id="load-more-wrap" hidden>
+          <button type="button" class="btn btn-outline" id="load-more">Mostra'n més</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand">EducApps</p>
+        <p class="footer-text">Un projecte obert i col·laboratiu. Les aplicacions pertanyen a les seves autories; aquí només hi recollim els enllaços.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/vmoren12/educapps/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Com contribuir</a></li>
+        <li><a href="https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml" target="_blank" rel="noopener noreferrer">Proposa una aplicació</a></li>
+        <li><a href="https://github.com/vmoren12/educapps" target="_blank" rel="noopener noreferrer">Codi font</a></li>
+      </ul>
+      <p class="footer-note">Sense galetes ni seguiment. Els favorits es desen només al teu navegador.</p>
+    </div>
+  </footer>
+
+  <dialog class="dialog" id="app-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-cover" id="dialog-cover" aria-hidden="true"></div>
+    <button type="button" class="icon-btn dialog-close" id="dialog-close" aria-label="Tanca">
+      <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
+    <div class="dialog-body">
+      <p class="card-ambit" id="dialog-ambit"></p>
+      <h2 class="dialog-title" id="dialog-title"></h2>
+      <p class="dialog-author" id="dialog-author"></p>
+      <p class="dialog-desc" id="dialog-desc"></p>
+      <dl class="meta" id="dialog-meta"></dl>
+      <ul class="tags" id="dialog-tags" aria-label="Etiquetes"></ul>
+    </div>
+    <div class="dialog-actions">
+      <a class="btn btn-primary" id="dialog-open" target="_blank" rel="noopener noreferrer">
+        Obre l'aplicació
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+      <a class="btn btn-outline" id="dialog-code" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>
+        Codi font
+      </a>
+      <span class="dialog-spacer"></span>
+      <button type="button" class="icon-btn" id="dialog-share" aria-label="Copia l'enllaç a aquesta fitxa">
+        <svg class="icon" aria-hidden="true"><use href="#i-link"/></svg>
+      </button>
+      <button type="button" class="icon-btn fav-btn" id="dialog-fav" aria-pressed="false" aria-label="Afegeix a favorits">
+        <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+      </button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <template id="tpl-card">
+    <li class="card">
+      <article class="card-inner">
+        <div class="card-cover" aria-hidden="true"></div>
+        <div class="card-body">
+          <p class="card-ambit"></p>
+          <h3 class="card-title"><button type="button" class="card-link"></button></h3>
+          <p class="card-desc"></p>
+          <p class="card-author"></p>
+        </div>
+        <div class="card-foot">
+          <p class="card-levels"></p>
+          <div class="card-actions">
+            <button type="button" class="icon-btn fav-btn" aria-pressed="false">
+              <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+            </button>
+            <a class="icon-btn card-open" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    </li>
+  </template>
+
+  <template id="tpl-skeleton">
+    <li class="card card-skeleton" aria-hidden="true">
+      <div class="card-inner">
+        <div class="card-cover"></div>
+        <div class="card-body"><span class="sk sk-sm"></span><span class="sk sk-lg"></span><span class="sk"></span><span class="sk"></span></div>
+      </div>
+    </li>
+  </template>
+
+  <noscript><p class="container noscript">Aquesta web necessita JavaScript per mostrar el catàleg.</p></noscript>
+</body>
+</html>
