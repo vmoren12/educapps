@@ -3,9 +3,9 @@ import { createFavorites, preferences } from './store.js';
 import { readUrlState, writeUrlState, appUrl } from './url-state.js';
 import { buildFacets, updateFacets, renderChips, createCard, setFavoriteButton, fillDialog } from './render.js';
 import { debounce, plural } from './utils.js';
+import { loadCatalogData } from './data-source.js';
 
 const PAGE_SIZE = 24;
-const DATA_URL = 'data/apps.json';
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -74,9 +74,7 @@ async function init() {
   showSkeletons();
 
   try {
-    const response = await fetch(DATA_URL, { cache: 'no-cache' });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    catalog = prepareCatalog(await response.json());
+    catalog = prepareCatalog(await loadCatalogData());
   } catch (error) {
     console.error('No s\'ha pogut carregar el catàleg:', error);
     showLoadError();
