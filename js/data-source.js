@@ -1,4 +1,4 @@
-import { SUPABASE_URL, SUPABASE_KEY, FALLBACK_URL } from './config.js';
+import { SUPABASE_URL, SUPABASE_KEY, FALLBACK_URL, coverUrl } from './config.js';
 
 const TIMEOUT_MS = 6000;
 
@@ -12,6 +12,7 @@ async function getJson(url, { headers = {}, signal } = {}) {
 function fromRow(row) {
   return {
     id: row.slug,
+    uuid: row.id,
     titol: row.titol,
     descripcio: row.descripcio,
     detall: row.detall ?? undefined,
@@ -22,6 +23,7 @@ function fromRow(row) {
     nivells: row.nivells ?? [],
     idiomes: row.idiomes ?? [],
     etiquetes: row.etiquetes ?? [],
+    imatge: coverUrl(row.imatge),
     afegit: (row.publicada_at ?? '').slice(0, 10),
   };
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'; connect-src 'self' https://vvvsuksrsczuvmswmjaw.supabase.co; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https://vvvsuksrsczuvmswmjaw.supabase.co; style-src 'self'; script-src 'self'; connect-src 'self' https://vvvsuksrsczuvmswmjaw.supabase.co; base-uri 'self'; form-action 'none'; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="robots" content="noindex">
   <title>El meu compte · EducApps</title>
@@ -90,6 +90,11 @@
           <a class="btn btn-primary" href="proposa.html">
             <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-plus"/></svg>
             Afegeix una aplicació
+          </a>
+          <a class="btn btn-outline" id="mod-link" href="moderacio.html" hidden>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-shield"/></svg>
+            Moderació
+            <span class="badge" id="mod-count" hidden>0</span>
           </a>
           <button type="button" class="btn btn-outline" id="logout">
             <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-logout"/></svg>

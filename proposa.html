@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'; connect-src 'self' https://vvvsuksrsczuvmswmjaw.supabase.co; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https://vvvsuksrsczuvmswmjaw.supabase.co; style-src 'self'; script-src 'self'; connect-src 'self' https://vvvsuksrsczuvmswmjaw.supabase.co; base-uri 'self'; form-action 'none'; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Afegeix la teva aplicació · EducApps</title>
   <meta name="description" content="Comparteix amb la comunitat docent una aplicació educativa que hagis creat.">
@@ -117,6 +117,32 @@
               <input class="input" id="f-etiquetes" name="etiquetes" placeholder="fraccions, càlcul mental, manipulables" aria-describedby="f-etiquetes-hint f-etiquetes-error">
               <p class="field-hint" id="f-etiquetes-hint">Separades per comes. Màxim 10, de fins a 30 caràcters. Ajuden a trobar-la en la cerca.</p>
               <p class="field-error" id="f-etiquetes-error"></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>Imatge de portada</legend>
+
+            <div class="image-field">
+              <div class="image-field-preview" id="f-imatge-preview" aria-hidden="true"></div>
+              <div class="field">
+                <p class="field-label" id="f-imatge-label">Captura o imatge representativa <span class="field-optional">Opcional</span></p>
+                <p class="field-hint" id="f-imatge-hint">JPG, PNG o WebP. Es retallarà i comprimirà automàticament (1200 × 525 px). Si no en poses cap, es crearà una portada geomètrica.</p>
+                <div class="image-field-actions">
+                  <button type="button" class="btn btn-outline btn-sm" id="f-imatge-pick" aria-describedby="f-imatge-hint f-imatge-error">Tria una imatge</button>
+                  <button type="button" class="btn btn-outline btn-sm" id="f-imatge-remove" hidden>Treu la imatge</button>
+                  <input type="file" id="f-imatge" accept="image/png,image/jpeg,image/webp" hidden>
+                </div>
+                <p class="field-error" id="f-imatge-error" role="alert"></p>
+              </div>
+            </div>
+
+            <div class="field" id="f-consent-wrap" hidden>
+              <label class="check">
+                <input type="checkbox" id="f-consent" aria-describedby="f-consent-error">
+                <span>La imatge no mostra dades personals de l'alumnat (cares, noms o treballs identificables) i tinc dret a fer-la servir.</span>
+              </label>
+              <p class="field-error" id="f-consent-error"></p>
             </div>
           </fieldset>
 

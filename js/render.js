@@ -17,6 +17,26 @@ export function icon(id) {
 }
 
 /**
+ * Omple un contenidor de portada: la imatge de l'aplicació si en té (URL https o blob:)
+ * i, si no, la portada generativa. Si la imatge falla, torna a la generativa.
+ */
+export function renderCover(container, app, size) {
+  const fallback = () => container.replaceChildren(createCover(app.id, size));
+  const src = app.imatge && (app.imatge.startsWith('https://') || app.imatge.startsWith('blob:')) ? app.imatge : null;
+  if (!src) {
+    fallback();
+    return;
+  }
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = '';
+  img.loading = 'lazy';
+  img.decoding = 'async';
+  img.addEventListener('error', fallback, { once: true });
+  container.replaceChildren(img);
+}
+
+/**
  * Portada generativa: una retícula de formes geomètriques (quarts i mitjos cercles,
  * cercles) derivada de l'identificador. Cada aplicació té una imatge única i estable.
  */
@@ -89,7 +109,7 @@ export function createCard(template, catalog, app, handlers) {
   inner.dataset.ambit = app.ambit;
   node.dataset.id = app.id;
 
-  node.querySelector('.card-cover').append(createCover(app.id));
+  renderCover(node.querySelector('.card-cover'), app);
   node.querySelector('.card-ambit').textContent = label(catalog, 'ambit', app.ambit);
 
   const link = node.querySelector('.card-link');
@@ -209,7 +229,7 @@ export function renderChips(container, catalog, state, onRemove) {
 
 export function fillDialog(els, catalog, app) {
   els.dialog.dataset.ambit = app.ambit;
-  els.cover.replaceChildren(createCover(app.id, { cols: 12, rows: 4 }));
+  renderCover(els.cover, app, { cols: 12, rows: 4 });
   els.ambit.textContent = label(catalog, 'ambit', app.ambit);
   els.title.textContent = app.titol;
 

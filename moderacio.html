@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https://vvvsuksrsczuvmswmjaw.supabase.co; style-src 'self'; script-src 'self'; connect-src 'self' https://vvvsuksrsczuvmswmjaw.supabase.co; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="noindex">
+  <title>Moderació · EducApps</title>
+  <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/theme-init.js"></script>
+  <script type="module" src="js/moderacio.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#mod-list">Salta a la llista</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="EducApps, inici">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="2" y="2" width="28" height="28" rx="8" class="logo-bg"/>
+          <path d="M9 23V9h14M9 16h9" class="logo-fg"/>
+          <circle cx="21.5" cy="21.5" r="2.5" class="logo-dot"/>
+        </svg>
+        <span class="brand-name">EducApps</span>
+      </a>
+      <nav class="header-nav" aria-label="Principal">
+        <a class="nav-btn" id="account-link" href="compte.html">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-user"/></svg>
+          <span class="nav-label">El meu compte</span>
+        </a>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Canvia el tema de color">
+          <svg class="icon icon-sun" aria-hidden="true"><use href="assets/icons.svg#i-sun"/></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="assets/icons.svg#i-moon"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page page-wide container">
+    <div class="page-head">
+      <a class="back-link" href="compte.html">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-back"/></svg>
+        El meu compte
+      </a>
+      <h1>Moderació</h1>
+      <p class="page-lead">Revisa les propostes abans de publicar-les i atén els informes de problemes. Obre sempre l'enllaç per comprovar que funciona.</p>
+    </div>
+
+    <p class="loading" id="loading">Carregant…</p>
+
+    <div class="panel" id="denied" hidden>
+      <h2 class="panel-title">Accés restringit</h2>
+      <p class="panel-text">Aquesta pàgina només és per a moderadors.</p>
+      <a class="btn btn-outline" href="compte.html">Torna al compte</a>
+    </div>
+
+    <div id="panel" hidden>
+      <div class="tabs" role="group" aria-label="Seccions">
+        <button type="button" class="tab" data-tab="pendent" aria-pressed="true">Pendents <span class="badge" data-count="pendent">0</span></button>
+        <button type="button" class="tab" data-tab="informes" aria-pressed="false">Informes <span class="badge" data-count="informes">0</span></button>
+        <button type="button" class="tab" data-tab="publicada" aria-pressed="false">Publicades</button>
+        <button type="button" class="tab" data-tab="rebutjada" aria-pressed="false">Rebutjades</button>
+      </div>
+
+      <p class="result-count" id="mod-status" role="status" aria-live="polite"></p>
+      <ul class="mod-list" id="mod-list" aria-label="Elements per revisar"></ul>
+
+      <div class="panel empty-panel" id="mod-empty" hidden>
+        <h2 class="empty-title" id="mod-empty-title">Tot al dia</h2>
+        <p class="empty-text" id="mod-empty-text">No hi ha res pendent de revisar.</p>
+      </div>
+    </div>
+  </main>
+
+  <template id="tpl-reject">
+    <form class="mod-reject" novalidate>
+      <div class="field">
+        <label class="field-label">Motiu <span class="field-optional">El veurà l'autoria</span></label>
+        <div class="reason-chips"></div>
+        <textarea class="input" rows="2" maxlength="500" required></textarea>
+        <p class="field-error"></p>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-danger btn-sm">Confirma</button>
+        <button type="button" class="btn btn-outline btn-sm" data-cancel>Cancel·la</button>
+      </div>
+    </form>
+  </template>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

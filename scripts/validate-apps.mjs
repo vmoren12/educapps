@@ -72,6 +72,7 @@ if (!Array.isArray(data.apps)) {
     else if (urls.has(app.url)) fail(where, `URL duplicada ${app.url}`);
     urls.add(app.url);
     if (app.codi !== undefined && !isHttpUrl(app.codi)) fail(where, '«codi» ha de ser una adreça http(s) vàlida');
+    if (app.imatge !== undefined && !String(app.imatge).startsWith('https://')) fail(where, '«imatge» ha de ser una adreça https');
 
     if (!app.autor?.nom) fail(where, 'falta «autor.nom»');
     if (app.autor?.url !== undefined && !isHttpUrl(app.autor.url)) fail(where, '«autor.url» no és vàlida');

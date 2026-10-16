@@ -91,6 +91,10 @@ export function friendlyError(error) {
   if (error.code === '42501' || error.status === 401 || error.status === 403) {
     return 'No tens permís per fer aquesta acció. Torna a iniciar la sessió.';
   }
+  if (/maximum allowed size|payload too large/i.test(message)) return 'La imatge supera la mida màxima (1 MB).';
+  if (/mime type|invalid_mime_type/i.test(message)) return "Format d'imatge no admès. Fes servir JPG, PNG o WebP.";
+  if (/bucket not found/i.test(message)) return "L'espai d'imatges encara no està configurat (cal executar l'script 05).";
+  if (/imatge de portada/i.test(message)) return message;
   if (error.status === 429 || /rate limit/i.test(message)) return "S'han fet massa intents. Espera uns minuts i torna-ho a provar.";
   if (/invalid.*email|email.*invalid/i.test(message)) return 'Aquesta adreça de correu no és vàlida.';
   if (/fetch|network/i.test(message)) return 'No hi ha connexió amb el servidor. Comprova la xarxa i torna-ho a provar.';

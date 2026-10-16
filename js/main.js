@@ -5,6 +5,7 @@ import { buildFacets, updateFacets, renderChips, createCard, setFavoriteButton, 
 import { debounce, plural } from './utils.js';
 import { loadCatalogData } from './data-source.js';
 import { setupShell, showToast } from './shell.js';
+import { getClient, hasStoredSession, friendlyError } from './auth.js';
 
 const PAGE_SIZE = 24;
 
@@ -270,10 +271,75 @@ function openApp(id, { focusReturn = document.activeElement } = {}) {
   returnFocus = focusReturn;
   state.app = id;
   fillDialog(els.dialog, catalog, app);
+  resetReport(app);
   setFavoriteButton(els.dialog.fav, favorites.has(id), app.titol);
   document.title = `${app.titol} · EducApps`;
   if (!els.dialog.dialog.open) els.dialog.dialog.showModal();
   writeUrlState(state);
+}
+
+/* Informes de problemes ------------------------------------------------------------ */
+
+const report = {
+  toggle: $('#report-toggle'),
+  panel: $('#report-panel'),
+  login: $('#report-login'),
+  form: $('#report-form'),
+  comment: $('#report-comment'),
+  error: $('#report-error'),
+  submit: $('#report-submit'),
+};
+
+function resetReport(app) {
+  report.toggle.hidden = !app.uuid; // la còpia local no té identificador de base de dades
+  report.toggle.setAttribute('aria-expanded', 'false');
+  report.panel.hidden = true;
+  report.form.reset();
+  report.error.textContent = '';
+}
+
+function toggleReport() {
+  const open = report.panel.hidden;
+  report.panel.hidden = !open;
+  report.toggle.setAttribute('aria-expanded', String(open));
+  if (!open) return;
+  const signedIn = hasStoredSession();
+  report.login.hidden = signedIn;
+  report.form.hidden = !signedIn;
+  if (signedIn) report.form.querySelector('input[name="motiu"]').focus();
+}
+
+async function sendReport(event) {
+  event.preventDefault();
+  const app = catalog.apps.find((a) => a.id === state.app);
+  const motiu = report.form.querySelector('input[name="motiu"]:checked')?.value;
+  if (!app?.uuid) return;
+  if (!motiu) {
+    report.error.textContent = 'Tria quin problema hi ha.';
+    return;
+  }
+  report.error.textContent = '';
+  report.submit.disabled = true;
+  try {
+    const client = await getClient();
+    const { error } = await client.from('informes').insert({
+      app_id: app.uuid,
+      motiu,
+      comentari: report.comment.value.trim() || null,
+    });
+    if (error) {
+      report.error.textContent =
+        error.code === '23505' ? "Ja n'havies informat. Ho estem revisant." : friendlyError(error);
+      return;
+    }
+    resetReport(app);
+    report.toggle.focus();
+    showToast("Gràcies per avisar. Ho revisarem aviat.");
+  } catch (error) {
+    report.error.textContent = friendlyError(error);
+  } finally {
+    report.submit.disabled = false;
+  }
 }
 
 function onDialogClose() {
@@ -398,6 +464,12 @@ function bindEvents() {
 
   // Diàleg
   const { dialog, close, share, fav } = els.dialog;
+  report.toggle.addEventListener('click', toggleReport);
+  report.form.addEventListener('submit', sendReport);
+  $('#report-cancel').addEventListener('click', () => {
+    toggleReport();
+    report.toggle.focus();
+  });
   close.addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', onDialogClose);
   dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });

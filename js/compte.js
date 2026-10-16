@@ -1,6 +1,7 @@
 import { setupShell, updateAccountLink, showToast } from './shell.js';
 import { getClient, readAuthErrorFromUrl, friendlyError, siteUrl } from './auth.js';
-import { createCover, icon } from './render.js';
+import { renderCover, icon } from './render.js';
+import { COVERS_BUCKET, coverUrl } from './config.js';
 import { formatFullDate, hostname, isHttpUrl } from './utils.js';
 
 const $ = (id) => document.getElementById(id);
@@ -58,6 +59,7 @@ function onSession(session, urlError) {
   $('account-email').textContent = `Has entrat com a ${session.user.email}`;
   loadProfile();
   loadApps();
+  loadModeration();
 }
 
 /* Accés ------------------------------------------------------------------------- */
@@ -152,7 +154,7 @@ async function loadApps() {
   list.setAttribute('aria-busy', 'true');
   const { data, error } = await client
     .from('apps')
-    .select('id, slug, titol, url, ambit, estat, motiu_rebuig, created_at, updated_at')
+    .select('id, slug, titol, url, ambit, estat, motiu_rebuig, imatge, created_at, updated_at')
     .eq('propietari', currentUserId)
     .order('created_at', { ascending: false });
   list.setAttribute('aria-busy', 'false');
@@ -190,7 +192,7 @@ function createRow(app) {
   const cover = document.createElement('div');
   cover.className = 'row-cover';
   cover.setAttribute('aria-hidden', 'true');
-  cover.append(createCover(app.slug, { cols: 3, rows: 3 }));
+  renderCover(cover, { id: app.slug, imatge: coverUrl(app.imatge) }, { cols: 3, rows: 3 });
 
   const main = document.createElement('div');
   main.className = 'row-main';
@@ -244,9 +246,27 @@ async function deleteApp(app, row) {
     showToast(friendlyError(error));
     return;
   }
+  if (app.imatge) await client.storage.from(COVERS_BUCKET).remove([app.imatge]);
   row.remove();
   $('my-apps-empty').hidden = $('my-apps').children.length > 0;
   showToast('Aplicació esborrada');
+}
+
+/* Moderació -------------------------------------------------------------------------- */
+
+async function loadModeration() {
+  const { data: isModerator } = await client.rpc('es_moderador');
+  if (!isModerator) return;
+  const [pending, reports] = await Promise.all([
+    client.from('apps').select('id', { count: 'exact', head: true }).eq('estat', 'pendent'),
+    client.from('informes').select('id', { count: 'exact', head: true }).eq('resolt', false),
+  ]);
+  const total = (pending.count ?? 0) + (reports.count ?? 0);
+  const badge = $('mod-count');
+  badge.textContent = String(total);
+  badge.hidden = total === 0;
+  $('mod-link').setAttribute('aria-label', `Moderació, ${total} ${total === 1 ? 'element pendent' : 'elements pendents'}`);
+  $('mod-link').hidden = false;
 }
 
 /* Esdeveniments -------------------------------------------------------------------- */

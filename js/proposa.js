@@ -1,8 +1,10 @@
 import { setupShell } from './shell.js';
 import { getClient, friendlyError } from './auth.js';
 import { prepareCatalog } from './catalog.js';
-import { createCard } from './render.js';
+import { createCard, renderCover } from './render.js';
 import { debounce, slugify, isHttpsUrl, isHttpUrl } from './utils.js';
+import { COVERS_BUCKET, coverUrl } from './config.js';
+import { prepareCoverImage, ImageError } from './image-tools.js';
 
 const $ = (id) => document.getElementById(id);
 const editId = new URLSearchParams(window.location.search).get('id');
@@ -20,10 +22,14 @@ const FIELD_IDS = {
   autor_nom: 'f-autor-nom',
   autor_url: 'f-autor-url',
   codi: 'f-codi',
+  consent: 'f-consent',
 };
 
 let client;
+let userId;
 let taxonomies;
+// Estat de la imatge: 'none' (sense), 'keep' (la desada), 'new' (nova per pujar), 'remove' (treure la desada).
+const image = { original: null, mode: 'none', prepared: null, url: null };
 let fixedSlug = null;
 let submittedOnce = false;
 let dirty = false;
@@ -45,6 +51,7 @@ async function init() {
     window.location.replace('compte.html?next=proposa');
     return;
   }
+  userId = user.id;
 
   const [tax, profile, existing] = await Promise.all([
     loadTaxonomies(),
@@ -61,6 +68,9 @@ async function init() {
 
   if (existing.data) {
     fillForm(existing.data);
+    image.original = existing.data.imatge ?? null;
+    image.mode = image.original ? 'keep' : 'none';
+    image.url = coverUrl(image.original) ?? null;
     setupEditMode(existing.data);
   } else if (profile.data?.nom) {
     $('f-autor-nom').value = profile.data.nom;
@@ -68,6 +78,7 @@ async function init() {
 
   bindEvents();
   updateCounters();
+  updateImageField();
   updatePreview();
   $('loading').hidden = true;
   $('editor').hidden = false;
@@ -184,6 +195,9 @@ function validate(v) {
 
   if (v.autor_url && !isHttpUrl(v.autor_url)) errors.autor_url = "Escriu l'adreça completa, començant per https://";
   if (v.codi && !isHttpsUrl(v.codi)) errors.codi = "L'enllaç al codi ha de començar per https://";
+  if (image.mode === 'new' && !$('f-consent').checked) {
+    errors.consent = 'Confirma que la imatge no mostra dades personals i que la pots fer servir.';
+  }
 
   return Object.fromEntries(Object.entries(errors).filter(([, message]) => message));
 }
@@ -205,6 +219,77 @@ function focusFirstError(errors) {
   element.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
+/* Imatge de portada ------------------------------------------------------------------ */
+
+function currentSlug() {
+  return fixedSlug ?? slugify($('f-titol').value.trim() || 'la-teva-app');
+}
+
+function updateImageField() {
+  const preview = $('f-imatge-preview');
+  preview.dataset.ambit = readForm().ambit;
+  renderCover(preview, { id: currentSlug(), imatge: image.url }, { cols: 6, rows: 3 });
+  $('f-imatge-pick').textContent = image.url ? 'Canvia la imatge' : 'Tria una imatge';
+  $('f-imatge-remove').hidden = !image.url;
+  $('f-consent-wrap').hidden = image.mode !== 'new';
+}
+
+function setNewImageUrl(url) {
+  if (image.url?.startsWith('blob:')) URL.revokeObjectURL(image.url);
+  image.url = url;
+}
+
+async function onImageSelected() {
+  const input = $('f-imatge');
+  const file = input.files?.[0];
+  input.value = '';
+  if (!file) return;
+  const error = $('f-imatge-error');
+  error.textContent = '';
+  $('f-imatge-pick').disabled = true;
+  try {
+    image.prepared = await prepareCoverImage(file);
+    image.mode = 'new';
+    setNewImageUrl(URL.createObjectURL(image.prepared.blob));
+    $('f-consent').checked = false;
+    dirty = true;
+  } catch (e) {
+    error.textContent = e instanceof ImageError ? e.message : "No s'ha pogut processar la imatge.";
+    if (!(e instanceof ImageError)) console.error(e);
+  } finally {
+    $('f-imatge-pick').disabled = false;
+  }
+  updateImageField();
+  updatePreview();
+}
+
+function removeImage() {
+  image.prepared = null;
+  image.mode = image.original ? 'remove' : 'none';
+  setNewImageUrl(null);
+  $('f-imatge-error').textContent = '';
+  dirty = true;
+  updateImageField();
+  updatePreview();
+  $('f-imatge-pick').focus();
+}
+
+async function uploadNewImage() {
+  const { blob, type, extension } = image.prepared;
+  const path = `${userId}/${crypto.randomUUID()}.${extension}`;
+  const { error } = await client.storage
+    .from(COVERS_BUCKET)
+    .upload(path, blob, { contentType: type, cacheControl: '31536000', upsert: false });
+  if (error) throw error;
+  return path;
+}
+
+async function removeStoredImage(path) {
+  if (!path) return;
+  const { error } = await client.storage.from(COVERS_BUCKET).remove([path]);
+  if (error) console.warn("No s'ha pogut esborrar la imatge antiga:", error);
+}
+
 function updateCounters() {
   const desc = $('f-descripcio').value.trim().length;
   const descCounter = $('f-descripcio-count');
@@ -219,10 +304,11 @@ function updateCounters() {
 function updatePreview() {
   const v = readForm();
   const app = {
-    id: fixedSlug ?? slugify(v.titol || 'la-teva-app'),
+    id: currentSlug(),
     titol: v.titol || "Nom de l'aplicació",
     descripcio: v.descripcio || 'La descripció breu apareixerà aquí.',
     url: isHttpsUrl(v.url) ? v.url : '',
+    imatge: image.url,
     autor: { nom: v.autor_nom || 'Autoria' },
     ambit: v.ambit,
     nivells: v.nivells,
@@ -261,12 +347,30 @@ async function submit(event) {
   const button = $('submit');
   button.disabled = true;
   button.setAttribute('aria-busy', 'true');
-  const request = editId
-    ? client.from('apps').update(payload).eq('id', editId)
-    : client.from('apps').insert(payload);
-  const { error } = await request.select('slug').single();
+
+  let uploadedPath = null;
+  let error = null;
+  try {
+    if (image.mode === 'new') {
+      uploadedPath = await uploadNewImage();
+      payload.imatge = uploadedPath;
+    } else if (image.mode === 'remove') {
+      payload.imatge = null;
+    }
+    const request = editId
+      ? client.from('apps').update(payload).eq('id', editId)
+      : client.from('apps').insert(payload);
+    ({ error } = await request.select('slug').single());
+  } catch (uploadError) {
+    error = uploadError;
+  }
   button.disabled = false;
   button.removeAttribute('aria-busy');
+
+  if (error && uploadedPath) await removeStoredImage(uploadedPath);
+  if (!error && image.original && (image.mode === 'new' || image.mode === 'remove')) {
+    await removeStoredImage(image.original);
+  }
 
   if (error) {
     formError.textContent =
@@ -289,7 +393,14 @@ async function submit(event) {
 
 function bindEvents() {
   const form = $('app-form');
-  const refreshPreview = debounce(updatePreview, 120);
+  const refreshPreview = debounce(() => {
+    updatePreview();
+    updateImageField();
+  }, 120);
+
+  $('f-imatge-pick').addEventListener('click', () => $('f-imatge').click());
+  $('f-imatge').addEventListener('change', onImageSelected);
+  $('f-imatge-remove').addEventListener('click', removeImage);
 
   form.addEventListener('input', () => {
     dirty = true;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'; connect-src 'self' https://vvvsuksrsczuvmswmjaw.supabase.co; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https://vvvsuksrsczuvmswmjaw.supabase.co; style-src 'self'; script-src 'self'; connect-src 'self' https://vvvsuksrsczuvmswmjaw.supabase.co; base-uri 'self'; form-action 'none'; object-src 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>EducApps · Aplicacions educatives de la comunitat docent</title>
   <meta name="description" content="Repositori obert d'aplicacions educatives creades i recomanades per docents. Cerca, filtra per àmbit, nivell i idioma, i desa les teves preferides.">
@@ -186,6 +186,32 @@
       <button type="button" class="icon-btn fav-btn" id="dialog-fav" aria-pressed="false" aria-label="Afegeix a favorits">
         <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>
       </button>
+    </div>
+    <div class="dialog-report">
+      <button type="button" class="link-btn" id="report-toggle" aria-expanded="false" aria-controls="report-panel">Informa d'un problema</button>
+      <div id="report-panel" hidden>
+        <p class="report-login" id="report-login" hidden>Per evitar abusos, cal <a href="compte.html">iniciar la sessió</a> per informar d'un problema.</p>
+        <form class="report-form" id="report-form" novalidate hidden>
+          <fieldset class="field">
+            <legend class="field-label">Quin problema hi ha?</legend>
+            <div class="pills">
+              <label class="pill"><input type="radio" name="motiu" value="enllac-trencat"><span>L'enllaç no funciona</span></label>
+              <label class="pill"><input type="radio" name="motiu" value="dades-incorrectes"><span>Dades incorrectes</span></label>
+              <label class="pill"><input type="radio" name="motiu" value="contingut-inadequat"><span>Contingut inadequat</span></label>
+              <label class="pill"><input type="radio" name="motiu" value="altres"><span>Altres</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label class="field-label" for="report-comment">Comentari <span class="field-optional">Opcional</span></label>
+            <textarea class="input" id="report-comment" rows="2" maxlength="1000"></textarea>
+          </div>
+          <p class="field-error" id="report-error" role="alert"></p>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-sm" id="report-submit">Envia</button>
+            <button type="button" class="btn btn-outline btn-sm" id="report-cancel">Cancel·la</button>
+          </div>
+        </form>
+      </div>
     </div>
   </dialog>
 
