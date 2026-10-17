@@ -5,7 +5,7 @@ import { buildFacets, updateFacets, renderChips, createCard, setFavoriteButton, 
 import { debounce, plural } from './utils.js';
 import { loadCatalogData } from './data-source.js';
 import { setupShell, showToast } from './shell.js';
-import { getClient, hasStoredSession, friendlyError } from './auth.js';
+import { getClient, hasStoredSession, storedUser, friendlyError } from './auth.js';
 
 const PAGE_SIZE = 24;
 
@@ -55,7 +55,11 @@ const els = {
   },
 };
 
-const favorites = createFavorites();
+const favorites = createFavorites({
+  onSyncError: () => showToast("No s'ha pogut desar el favorit al teu compte"),
+});
+const sessionUser = storedUser();
+if (sessionUser) favorites.preload(sessionUser.id);
 const cards = new Map();
 let catalog;
 let state;
@@ -90,6 +94,20 @@ async function init() {
   update({ resetPage: true, syncUrl: false });
 
   if (state.app) openApp(state.app, { focusReturn: null });
+  if (sessionUser) syncFavorites();
+}
+
+/** Amb sessió, els favorits es llegeixen i es desen al compte. Sense sessió vàlida, al navegador. */
+async function syncFavorites() {
+  try {
+    const client = await getClient();
+    const { data } = await client.auth.getSession();
+    if (data.session) await favorites.connect(client, data.session.user.id);
+    else favorites.useLocal();
+  } catch (error) {
+    console.error('No s\'han pogut sincronitzar els favorits:', error);
+    favorites.useLocal();
+  }
 }
 
 /* Renderitzat ----------------------------------------------------------------- */
@@ -158,7 +176,9 @@ function renderEmpty(n) {
   const noFavorites = state.favorits && favorites.size === 0;
   els.emptyTitle.textContent = noFavorites ? 'Encara no tens favorits' : 'Cap coincidència';
   els.emptyText.textContent = noFavorites
-    ? 'Marca el cor de qualsevol aplicació per desar-la aquí. Els favorits es guarden en aquest navegador.'
+    ? favorites.synced
+      ? 'Marca el cor de qualsevol aplicació per desar-la aquí. Es guarden al teu compte i els veuràs des de qualsevol dispositiu.'
+      : 'Marca el cor de qualsevol aplicació per desar-la aquí. Si entres al teu compte, els tindràs a tots els dispositius.'
     : 'Prova amb altres paraules o treu algun dels filtres actius.';
   els.emptyReset.textContent = noFavorites ? 'Explora tot el catàleg' : 'Esborra la cerca i els filtres';
 }

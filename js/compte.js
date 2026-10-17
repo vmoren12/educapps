@@ -1,5 +1,6 @@
 import { setupShell, updateAccountLink, showToast } from './shell.js';
-import { getClient, readAuthErrorFromUrl, friendlyError, siteUrl } from './auth.js';
+import { getClient, readAuthErrorFromUrl, friendlyError, siteUrl, storedUser, rememberProfileName, forgetProfileName } from './auth.js';
+import { forgetAccountFavorites } from './store.js';
 import { renderCover, icon } from './render.js';
 import { COVERS_BUCKET, coverUrl } from './config.js';
 import { formatFullDate, hostname, isHttpUrl } from './utils.js';
@@ -37,10 +38,13 @@ async function init() {
 
 function onSession(session, urlError) {
   const userId = session?.user?.id ?? null;
-  updateAccountLink(Boolean(userId));
+  updateAccountLink(userId ? storedUser() ?? { id: userId, email: session.user.email ?? '', nom: '' } : null);
   if (userId === currentUserId && $('loading').hidden) return;
   currentUserId = userId;
   $('loading').hidden = true;
+  // Si canvia la persona (p. ex. s'entra amb un altre compte en una altra pestanya), el botó
+  // de moderació no ha de quedar visible de la sessió anterior.
+  $('mod-link').hidden = true;
 
   if (!userId) {
     $('account-view').hidden = true;
@@ -114,6 +118,8 @@ async function loadProfile() {
   $('profile-centre').value = data?.centre ?? '';
   $('profile-web').value = data?.web ?? '';
   $('profile-reminder').hidden = Boolean(data?.nom);
+  rememberProfileName(currentUserId, data?.nom);
+  updateAccountLink();
 }
 
 async function saveProfile(event) {
@@ -143,6 +149,8 @@ async function saveProfile(event) {
   box.textContent = error ? friendlyError(error) : '';
   if (!error) {
     $('profile-reminder').hidden = Boolean(nom);
+    rememberProfileName(currentUserId, nom);
+    updateAccountLink();
     showToast('Perfil desat');
   }
 }
@@ -255,8 +263,9 @@ async function deleteApp(app, row) {
 /* Moderació -------------------------------------------------------------------------- */
 
 async function loadModeration() {
+  const userId = currentUserId;
   const { data: isModerator } = await client.rpc('es_moderador');
-  if (!isModerator) return;
+  if (!isModerator || userId !== currentUserId) return;
   const [pending, reports] = await Promise.all([
     client.from('apps').select('id', { count: 'exact', head: true }).eq('estat', 'pendent'),
     client.from('informes').select('id', { count: 'exact', head: true }).eq('resolt', false),
@@ -280,6 +289,9 @@ function bindEvents() {
   });
   $('profile-form').addEventListener('submit', saveProfile);
   $('logout').addEventListener('click', async () => {
+    // Els favorits del compte i el nom no es queden en aquest navegador (ordinadors compartits).
+    forgetAccountFavorites(currentUserId);
+    forgetProfileName();
     await client.auth.signOut();
     showToast('Has sortit del compte');
   });

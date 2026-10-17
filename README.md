@@ -1,12 +1,14 @@
 # EducApps
 
+**<https://educapps.cat>**
+
 Repositori obert d'aplicacions educatives creades i recomanades per la comunitat docent. Una web estàtica, ràpida i accessible per descobrir petites i mitjanes aplicacions web allotjades a GitHub Pages, Netlify o serveis similars.
 
 ## Funcionalitats
 
 - **Cerca instantània** per nom, descripció, etiquetes i autoria, tolerant a accents i a la ela geminada.
 - **Filtres combinables** per àmbit, nivell educatiu i idioma, amb recomptes en temps real.
-- **Favorits** desats al navegador i sincronitzats entre pestanyes.
+- **Favorits** desats al navegador o, amb sessió iniciada, al compte (disponibles a qualsevol dispositiu).
 - **Fitxa de detall** de cada aplicació, amb enllaç directe per compartir-la.
 - **URL compartibles**: la cerca, els filtres i la fitxa oberta queden reflectits a l'adreça.
 - **Vista de graella o de llista**, ordenació per rellevància, data o alfabètica.
@@ -17,7 +19,7 @@ Repositori obert d'aplicacions educatives creades i recomanades per la comunitat
 - **Imatge de portada opcional**: es retalla i es comprimeix al navegador (WebP, 1200 × 525) abans de pujar-la. Sense imatge, es genera una portada geomètrica.
 - **Moderació**: tota aplicació nova o editada queda pendent fins que un moderador l'aprova des del panell `moderacio.html` (publicar, rebutjar amb motiu, retirar, atendre informes).
 - **Informes de problemes**: des de la fitxa de cada aplicació, qualsevol persona registrada pot avisar d'un enllaç trencat o d'un contingut inadequat.
-- **Privacitat**: sense galetes, analítica ni peticions a tercers. Política de seguretat de contingut (CSP) estricta.
+- **Privacitat**: sense galetes, analítica ni peticions a tercers. Política de seguretat de contingut (CSP) estricta. Política de privacitat a `privacitat.html`.
 
 ## Arquitectura
 
@@ -32,6 +34,8 @@ Repositori obert d'aplicacions educatives creades i recomanades per la comunitat
 ├── compte.html             Accés i «Les meves aplicacions»
 ├── proposa.html            Formulari per afegir o editar una aplicació
 ├── moderacio.html          Panell de moderació
+├── privacitat.html         Política de privacitat
+├── CNAME                   Domini propi per a GitHub Pages
 ├── css/styles.css          Estils (tokens, components, responsive)
 ├── assets/icons.svg        Icones (sprite SVG)
 ├── js/
@@ -46,12 +50,13 @@ Repositori obert d'aplicacions educatives creades i recomanades per la comunitat
 │   ├── shell.js            Capçalera, tema i avisos compartits
 │   ├── catalog.js          Cerca, filtres, recomptes i ordenació (funcions pures)
 │   ├── render.js           Generació del DOM i portades generatives
-│   ├── store.js            Favorits i preferències (localStorage)
+│   ├── store.js            Favorits (navegador o compte) i preferències
 │   ├── url-state.js        Sincronització amb la URL
 │   ├── theme-init.js       Aplica el tema abans de pintar
 │   └── utils.js
 ├── vendor/                 supabase-js (versió fixada, vegeu vendor/README.md)
 ├── supabase/sql/           Scripts de la base de dades, numerats
+├── supabase/plantilles/    Correus d'accés en català (per enganxar a Supabase)
 ├── data/apps.json          Còpia local del catàleg
 ├── scripts/validate-apps.mjs   Validador de la còpia local
 └── .github/                Plantilles d'issues i PR, validació automàtica
@@ -102,7 +107,9 @@ Les taxonomies (`ambits`, `nivells`, `idiomes`) es defineixen al mateix fitxer. 
 
 ## Publicació
 
-**GitHub Pages**: *Settings → Pages → Build and deployment → Deploy from a branch*, branca `main`, carpeta `/ (root)`. La web quedarà a `https://vmoren12.github.io/educapps/`.
+**GitHub Pages**: *Settings → Pages → Build and deployment → Deploy from a branch*, branca `main`, carpeta `/ (root)`, amb el domini propi `educapps.cat` (fitxer `CNAME`, que no s'ha d'esborrar). Els DNS són a Hostinger: registres `A`/`AAAA` del domini cap a GitHub Pages i `CNAME` de `www` cap a `vmoren12.github.io`. L'adreça antiga `https://vmoren12.github.io/educapps/` redirigeix al domini.
+
+**Correu**: els enllaços d'accés s'envien per l'SMTP de Brevo des de `noreply@educapps.cat` (domini autenticat amb DKIM i DMARC).
 
 **Netlify / Vercel / Cloudflare Pages**: importa el repositori sense ordre de compilació i amb el directori de publicació a l'arrel.
 

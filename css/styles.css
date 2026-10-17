@@ -330,6 +330,25 @@ a { color: inherit; }
 .nav-btn[aria-pressed="true"] .icon { color: var(--heart); fill: currentColor; }
 .nav-btn-strong { border-color: var(--line-strong); color: var(--ink); }
 
+/* Compte amb sessió: inicial en un cercle i nom curt */
+#account-link.is-signed-in { padding-left: 6px; color: var(--ink); }
+#account-link.is-signed-in > .icon { display: none; }
+#account-link .nav-label { max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1;
+}
+.avatar[hidden] { display: none; }
+
 #theme-toggle .icon-moon { display: none; }
 :root[data-resolved-theme="dark"] #theme-toggle .icon-sun { display: none; }
 :root[data-resolved-theme="dark"] #theme-toggle .icon-moon { display: block; }
@@ -1088,6 +1107,25 @@ textarea.input-lg { min-height: 150px; }
 
 .small-print { margin-top: 18px; color: var(--ink-3); font-size: 0.8125rem; }
 .small-print a { color: var(--ink-2); }
+.page-head .small-print { margin-top: 0; }
+
+/* Textos llargs (privacitat) */
+.page-prose { max-width: 760px; }
+.prose { display: grid; gap: 14px; color: var(--ink-2); line-height: 1.65; }
+.prose h2 {
+  margin-top: 22px;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.prose h2:first-child { margin-top: 0; }
+.prose strong { color: var(--ink); font-weight: 600; }
+.prose ul { display: grid; gap: 8px; padding-left: 1.25em; }
+.prose ul li { list-style: disc; }
+.prose ul li::marker { color: var(--ink-3); }
+.prose a { color: var(--accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
 
 /* Panell de moderació */
 .page-wide { max-width: 1080px; }
@@ -1201,6 +1239,7 @@ textarea.input-lg { min-height: 150px; }
   .nav-label { display: none; }
   .nav-btn { padding: 0 11px; }
   .nav-btn-strong { width: 40px; padding: 0; justify-content: center; }
+  #account-link.is-signed-in { width: 40px; padding: 0; justify-content: center; }
   #fav-toggle { padding-right: 8px; }
 
   .toolbar { flex-wrap: wrap; row-gap: 10px; }

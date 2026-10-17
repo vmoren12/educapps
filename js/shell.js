@@ -1,10 +1,14 @@
 // Elements comuns a totes les pàgines: tema, capçalera, enllaç de compte i avisos.
-import { hasStoredSession } from './auth.js';
+import { storedUser, SESSION_STORAGE_KEY, PROFILE_STORAGE_KEY } from './auth.js';
 
 export function setupShell() {
   setupTheme();
   setupHeaderScroll();
   updateAccountLink();
+  // Entrar o sortir en una altra pestanya també actualitza aquesta capçalera.
+  window.addEventListener('storage', (event) => {
+    if (event.key === SESSION_STORAGE_KEY || event.key === PROFILE_STORAGE_KEY || event.key === null) updateAccountLink();
+  });
 }
 
 function setupTheme() {
@@ -34,9 +38,40 @@ function setupHeaderScroll() {
   onScroll();
 }
 
-export function updateAccountLink(signedIn = hasStoredSession()) {
-  const label = document.querySelector('#account-link .nav-label');
-  if (label) label.textContent = signedIn ? 'El meu compte' : 'Entra';
+/** Nom curt per a la capçalera: el primer nom del perfil o, si no n'hi ha, el correu abans de l'@. */
+function shortName(user) {
+  return user.nom.trim().split(/\s+/)[0] || user.email.split('@')[0] || 'El meu compte';
+}
+
+/** Capçalera: «Entra» sense sessió; inicial i nom de la persona amb sessió. */
+export function updateAccountLink(user = storedUser()) {
+  const link = document.getElementById('account-link');
+  if (!link) return;
+  const label = link.querySelector('.nav-label');
+  let avatar = link.querySelector('.avatar');
+
+  if (!user) {
+    link.classList.remove('is-signed-in');
+    link.removeAttribute('title');
+    link.removeAttribute('aria-label');
+    if (avatar) avatar.hidden = true;
+    if (label) label.textContent = 'Entra';
+    return;
+  }
+
+  const name = shortName(user);
+  if (!avatar) {
+    avatar = document.createElement('span');
+    avatar.className = 'avatar';
+    avatar.setAttribute('aria-hidden', 'true');
+    link.prepend(avatar);
+  }
+  avatar.textContent = name.charAt(0).toLocaleUpperCase('ca');
+  avatar.hidden = false;
+  if (label) label.textContent = name;
+  link.classList.add('is-signed-in');
+  link.title = user.email;
+  link.setAttribute('aria-label', `El meu compte, ${user.nom.trim() || user.email}`);
 }
 
 let toastTimer;

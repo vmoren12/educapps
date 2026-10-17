@@ -5,12 +5,44 @@ const CLIENT_SCRIPT = 'vendor/supabase-js-2.117.2.min.js';
 const PROJECT_REF = new URL(SUPABASE_URL).hostname.split('.')[0];
 const STORAGE_KEY = `sb-${PROJECT_REF}-auth-token`;
 
+export const SESSION_STORAGE_KEY = STORAGE_KEY;
+export const PROFILE_STORAGE_KEY = 'educapps:perfil';
+
 /** Indica si hi ha una sessió desada sense haver de carregar el client. */
 export function hasStoredSession() {
   try {
     return Boolean(localStorage.getItem(STORAGE_KEY));
   } catch {
     return false;
+  }
+}
+
+/** Usuari de la sessió desada ({ id, email, nom }), sense carregar el client. Null si no n'hi ha. */
+export function storedUser() {
+  try {
+    const user = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null')?.user;
+    if (!user?.id) return null;
+    const profile = JSON.parse(localStorage.getItem(PROFILE_STORAGE_KEY) ?? 'null');
+    return { id: user.id, email: user.email ?? '', nom: profile?.id === user.id ? profile.nom ?? '' : '' };
+  } catch {
+    return null;
+  }
+}
+
+/** Desa el nom del perfil per mostrar-lo a la capçalera sense consultar Supabase. */
+export function rememberProfileName(id, nom) {
+  try {
+    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify({ id, nom: nom || '' }));
+  } catch {
+    /* sense persistència */
+  }
+}
+
+export function forgetProfileName() {
+  try {
+    localStorage.removeItem(PROFILE_STORAGE_KEY);
+  } catch {
+    /* sense persistència */
   }
 }
 

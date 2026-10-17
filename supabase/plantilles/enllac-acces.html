@@ -1,0 +1,15 @@
+<!-- Supabase → Authentication → Emails → Templates → Magic Link
+     Assumpte: El teu enllaç d'accés a EducApps -->
+<div style="margin:0;padding:32px 16px;background:#f7f6f3;font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1b1b1a;">
+  <div style="max-width:480px;margin:0 auto;padding:32px;background:#ffffff;border:1px solid #e5e2db;border-radius:16px;">
+    <p style="margin:0 0 24px;font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:600;color:#1f5f5b;">EducApps</p>
+    <h1 style="margin:0 0 12px;font-size:20px;font-weight:600;line-height:1.3;">Entra al teu compte</h1>
+    <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#55534e;">Has demanat un enllaç per entrar a EducApps. Fes clic al botó per accedir-hi. L'enllaç només es pot fer servir una vegada i caduca al cap d'una hora.</p>
+    <p style="margin:0 0 28px;">
+      <a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:12px 22px;background:#1f5f5b;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;border-radius:999px;">Entra a EducApps</a>
+    </p>
+    <p style="margin:0 0 8px;font-size:13px;line-height:1.6;color:#85827a;">Si el botó no funciona, copia aquesta adreça al navegador:</p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;word-break:break-all;"><a href="{{ .ConfirmationURL }}" style="color:#1f5f5b;">{{ .ConfirmationURL }}</a></p>
+    <p style="margin:0;padding-top:20px;border-top:1px solid #e5e2db;font-size:13px;line-height:1.6;color:#85827a;">Si no has demanat aquest correu, pots ignorar-lo: ningú no podrà entrar al teu compte sense aquest enllaç.</p>
+  </div>
+</div>
