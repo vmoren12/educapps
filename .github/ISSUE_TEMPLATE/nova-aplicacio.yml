@@ -38,7 +38,8 @@ body:
   - type: dropdown
     id: ambit
     attributes:
-      label: Àmbit
+      label: Àmbits
+      multiple: true
       options:
         - Matemàtiques
         - Ciències

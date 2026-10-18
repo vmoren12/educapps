@@ -41,6 +41,7 @@ function fromRow(row) {
     codi: row.codi ?? undefined,
     autor: { nom: row.autor_nom, url: row.autor_url ?? undefined },
     ambit: row.ambit,
+    ambits: row.ambits ?? [row.ambit],
     nivells: row.nivells ?? [],
     idiomes: row.idiomes ?? [],
     etiquetes: row.etiquetes ?? [],

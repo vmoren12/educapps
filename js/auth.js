@@ -104,6 +104,7 @@ const CHECK_MESSAGES = {
   apps_autor_nom_check: "El nom de l'autoria ha de tenir entre 2 i 120 caràcters.",
   apps_autor_url_check: "L'enllaç de l'autoria no és vàlid.",
   apps_etiquetes_check: 'Pots posar com a màxim 10 etiquetes.',
+  apps_ambits_check: 'Tria almenys un àmbit.',
   profiles_nom_check: 'El nom ha de tenir entre 2 i 80 caràcters.',
   profiles_web_check: 'La web ha de començar per http:// o https://.',
 };
@@ -126,6 +127,7 @@ export function friendlyError(error) {
   if (/maximum allowed size|payload too large/i.test(message)) return 'La imatge supera la mida màxima (1 MB).';
   if (/mime type|invalid_mime_type/i.test(message)) return "Format d'imatge no admès. Fes servir JPG, PNG o WebP.";
   if (/bucket not found/i.test(message)) return "L'espai d'imatges encara no està configurat (cal executar l'script 05).";
+  if (/'ambits' column/i.test(message)) return "La base de dades encara no admet diversos àmbits (cal executar l'script 07).";
   if (/imatge de portada/i.test(message)) return message;
   if (error.status === 429 || /rate limit/i.test(message)) return "S'han fet massa intents. Espera uns minuts i torna-ho a provar.";
   if (/invalid.*email|email.*invalid/i.test(message)) return 'Aquesta adreça de correu no és vàlida.';

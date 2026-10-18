@@ -15,7 +15,7 @@ const FIELD_IDS = {
   titol: 'f-titol',
   descripcio: 'f-descripcio',
   detall: 'f-detall',
-  ambit: 'f-ambit',
+  ambits: 'f-ambit',
   nivells: 'f-nivells',
   idiomes: 'f-idiomes',
   etiquetes: 'f-etiquetes',
@@ -62,7 +62,7 @@ async function init() {
   if (editId && !existing.data) return fail("No s'ha trobat l'aplicació o no tens permís per editar-la.");
   taxonomies = tax;
 
-  buildPills('f-ambit', 'ambit', 'radio', taxonomies.ambits);
+  buildPills('f-ambit', 'ambits', 'checkbox', taxonomies.ambits);
   buildPills('f-nivells', 'nivells', 'checkbox', taxonomies.nivells);
   buildPills('f-idiomes', 'idiomes', 'checkbox', taxonomies.idiomes);
 
@@ -102,7 +102,7 @@ function buildPills(containerId, name, type, items) {
   for (const item of items) {
     const label = document.createElement('label');
     label.className = 'pill';
-    if (name === 'ambit') label.dataset.ambit = item.id;
+    if (name === 'ambits') label.dataset.ambit = item.id;
     const input = document.createElement('input');
     input.type = type;
     input.name = name;
@@ -128,7 +128,7 @@ function fillForm(app) {
     document.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
       input.checked = values.includes(input.value);
     });
-  check('ambit', [app.ambit]);
+  check('ambits', app.ambits?.length ? app.ambits : [app.ambit]);
   check('nivells', app.nivells ?? []);
   check('idiomes', app.idiomes ?? []);
 }
@@ -157,7 +157,7 @@ function readForm() {
     titol: value('f-titol'),
     descripcio: value('f-descripcio').replace(/\s+/g, ' '),
     detall: value('f-detall'),
-    ambit: checked('ambit')[0] ?? '',
+    ambits: checked('ambits'),
     nivells: checked('nivells'),
     idiomes: checked('idiomes'),
     etiquetes: parseTags($('f-etiquetes').value),
@@ -186,7 +186,7 @@ function validate(v) {
   errors.detall = lengthError('detall', v.detall, '');
   errors.autor_nom = lengthError('autor_nom', v.autor_nom, "el nom de l'autoria");
 
-  if (!v.ambit) errors.ambit = 'Tria un àmbit.';
+  if (!v.ambits.length) errors.ambits = 'Tria almenys un àmbit.';
   if (!v.nivells.length) errors.nivells = 'Tria almenys un nivell.';
   if (!v.idiomes.length) errors.idiomes = 'Tria almenys un idioma.';
 
@@ -227,7 +227,7 @@ function currentSlug() {
 
 function updateImageField() {
   const preview = $('f-imatge-preview');
-  preview.dataset.ambit = readForm().ambit;
+  preview.dataset.ambit = readForm().ambits[0] ?? '';
   renderCover(preview, { id: currentSlug(), imatge: image.url }, { cols: 6, rows: 3 });
   $('f-imatge-pick').textContent = image.url ? 'Canvia la imatge' : 'Tria una imatge';
   $('f-imatge-remove').hidden = !image.url;
@@ -358,7 +358,8 @@ function updatePreview() {
     url: isHttpsUrl(v.url) ? v.url : '',
     imatge: image.url,
     autor: { nom: v.autor_nom || 'Autoria' },
-    ambit: v.ambit,
+    ambit: v.ambits[0] ?? '',
+    ambits: v.ambits,
     nivells: v.nivells,
     idiomes: v.idiomes,
     etiquetes: v.etiquetes,
@@ -387,6 +388,7 @@ async function submit(event) {
 
   const payload = {
     ...values,
+    ambit: values.ambits[0], // principal; la base de dades el recalcula a partir d'«ambits»
     detall: values.detall || null,
     autor_url: values.autor_url || null,
     codi: values.codi || null,

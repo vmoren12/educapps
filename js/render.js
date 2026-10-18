@@ -1,4 +1,4 @@
-import { FACETS, label } from './catalog.js';
+import { FACETS, label, appAmbits } from './catalog.js';
 import { hashString, seededRandom, safeUrl, hostname, formatDate } from './utils.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -88,18 +88,23 @@ export function createCover(seedText, { cols = 8, rows = 4 } = {}) {
   return svg;
 }
 
+/** Noms dels àmbits: «Matemàtiques · Ciències». */
+function ambitsText(catalog, app) {
+  return appAmbits(app).map((id) => label(catalog, 'ambit', id)).join(' · ');
+}
+
 function levelsText(catalog, app) {
   return (app.nivells ?? []).map((id) => label(catalog, 'nivell', id));
 }
 
-/** Resumeix nivells consecutius com a interval: «Primària – Batxillerat». */
+/** Resumeix nivells consecutius com a interval: «Primària fins a Batxillerat». */
 function levelsSummary(catalog, app) {
   const order = catalog.taxonomies.nivell.map((item) => item.id);
   const positions = (app.nivells ?? []).map((id) => order.indexOf(id)).filter((i) => i >= 0).sort((a, b) => a - b);
   if (!positions.length) return '';
   const names = positions.map((i) => catalog.taxonomies.nivell[i].nom);
   const contiguous = positions.every((p, i) => i === 0 || p === positions[i - 1] + 1);
-  if (contiguous && names.length > 2) return `${names[0]} – ${names[names.length - 1]}`;
+  if (contiguous && names.length > 2) return `${names[0]} fins a ${names[names.length - 1]}`;
   return names.join(' · ');
 }
 
@@ -110,7 +115,7 @@ export function createCard(template, catalog, app, handlers) {
   node.dataset.id = app.id;
 
   renderCover(node.querySelector('.card-cover'), app);
-  node.querySelector('.card-ambit').textContent = label(catalog, 'ambit', app.ambit);
+  node.querySelector('.card-ambit').textContent = ambitsText(catalog, app);
 
   const link = node.querySelector('.card-link');
   link.textContent = app.titol;
@@ -230,7 +235,7 @@ export function renderChips(container, catalog, state, onRemove) {
 export function fillDialog(els, catalog, app) {
   els.dialog.dataset.ambit = app.ambit;
   renderCover(els.cover, app, { cols: 12, rows: 4 });
-  els.ambit.textContent = label(catalog, 'ambit', app.ambit);
+  els.ambit.textContent = ambitsText(catalog, app);
   els.title.textContent = app.titol;
 
   els.author.replaceChildren();

@@ -5,6 +5,11 @@ export const SORTS = ['rellevancia', 'recents', 'alfabetic'];
 
 const collator = new Intl.Collator('ca', { sensitivity: 'base' });
 
+/** Àmbits d'una aplicació. Les dades anteriors a l'script 07 només tenen «ambit». */
+export function appAmbits(app) {
+  return app.ambits?.length ? app.ambits : [app.ambit].filter(Boolean);
+}
+
 /** Prepara les dades en brut del JSON per filtrar i cercar ràpidament. */
 export function prepareCatalog(data) {
   const taxonomies = {
@@ -17,8 +22,9 @@ export function prepareCatalog(data) {
   );
 
   const apps = (data.apps ?? []).map((app) => {
+    const ambits = appAmbits(app);
     const facets = {
-      ambit: [app.ambit],
+      ambit: ambits,
       nivell: app.nivells ?? [],
       idioma: app.idiomes ?? [],
     };
@@ -26,11 +32,13 @@ export function prepareCatalog(data) {
       app.descripcio,
       app.detall,
       app.autor?.nom,
-      lookup.ambit.get(app.ambit)?.nom,
+      ...ambits.map((id) => lookup.ambit.get(id)?.nom),
       ...(app.etiquetes ?? []),
     ].join(' ');
     return {
       ...app,
+      ambit: ambits[0] ?? app.ambit, // àmbit principal: en determina el color
+      ambits,
       facets,
       index: { titol: normalize(app.titol), text: normalize(text) },
     };

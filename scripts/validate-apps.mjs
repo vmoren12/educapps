@@ -78,6 +78,14 @@ if (!Array.isArray(data.apps)) {
     if (app.autor?.url !== undefined && !isHttpUrl(app.autor.url)) fail(where, '«autor.url» no és vàlida');
 
     if (!ambits.has(app.ambit)) fail(where, `àmbit desconegut «${app.ambit}»`);
+    // «ambits» (opcional en dades antigues): tots els àmbits; «ambit» n'és el principal.
+    if (app.ambits !== undefined) {
+      if (!Array.isArray(app.ambits) || app.ambits.length === 0) fail(where, '«ambits» ha de ser una llista no buida');
+      else {
+        for (const value of app.ambits) if (!ambits.has(value)) fail(where, `valor desconegut a «ambits»: «${value}»`);
+        if (app.ambits[0] !== app.ambit) fail(where, '«ambit» ha de ser el primer de «ambits»');
+      }
+    }
 
     const checkList = (field, allowed) => {
       if (!Array.isArray(app[field]) || app[field].length === 0) {

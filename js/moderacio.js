@@ -200,7 +200,7 @@ function createAppItem(app, profile) {
 
   const ambit = document.createElement('p');
   ambit.className = 'card-ambit';
-  ambit.textContent = labels.ambit.get(app.ambit) ?? app.ambit;
+  ambit.textContent = (app.ambits?.length ? app.ambits : [app.ambit]).map((id) => labels.ambit.get(id) ?? id).join(' · ');
 
   const title = document.createElement('h2');
   title.className = 'mod-title';
