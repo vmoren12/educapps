@@ -63,6 +63,7 @@ const sessionUser = storedUser();
 if (sessionUser) favorites.preload(sessionUser.id);
 let accountUserId = null; // persona amb qui s'han sincronitzat els favorits i les aplicacions pròpies
 let ownApps = new Set(); // identificadors (uuid) de les aplicacions publicades de la persona amb sessió
+let isModerator = false; // els moderadors poden editar qualsevol aplicació
 const cards = new Map();
 let catalog;
 let state;
@@ -124,19 +125,22 @@ async function syncAccount() {
   }
 }
 
+/** Aplicacions que la persona pot editar des de la fitxa: les pròpies o, si modera, totes. */
 async function loadOwnApps(client, userId) {
-  const { data, error } = await client.from('apps').select('id').eq('propietari', userId).eq('estat', 'publicada');
-  if (error) {
-    console.error('No s\'han pogut carregar les aplicacions pròpies:', error);
-    return;
-  }
+  const [own, moderator] = await Promise.all([
+    client.from('apps').select('id').eq('propietari', userId).eq('estat', 'publicada'),
+    client.rpc('es_moderador'),
+  ]);
   if (userId !== accountUserId) return;
-  ownApps = new Set(data.map((row) => row.id));
+  isModerator = moderator.data === true;
+  if (own.error) console.error('No s\'han pogut carregar les aplicacions pròpies:', own.error);
+  else ownApps = new Set(own.data.map((row) => row.id));
   updateEditButton();
 }
 
 function signedOut() {
   accountUserId = null;
+  isModerator = false;
   ownApps = new Set();
   favorites.useLocal();
   updateEditButton();
@@ -346,11 +350,11 @@ function openApp(id, { focusReturn = document.activeElement } = {}) {
   writeUrlState(state);
 }
 
-/** A la fitxa d'una aplicació pròpia es mostra l'enllaç per editar-la. */
+/** A la fitxa d'una aplicació pròpia (o de qualsevol, si modera) es mostra l'enllaç per editar-la. */
 function updateEditButton() {
   const { edit } = els.dialog;
   const app = catalog && state?.app ? catalog.apps.find((a) => a.id === state.app) : null;
-  const editable = Boolean(app?.uuid && ownApps.has(app.uuid));
+  const editable = Boolean(app?.uuid && (isModerator || ownApps.has(app.uuid)));
   edit.hidden = !editable;
   if (!editable) return;
   edit.href = `proposa.html?id=${encodeURIComponent(app.uuid)}`;

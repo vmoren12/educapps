@@ -303,6 +303,7 @@ a { color: inherit; }
 .brand-mark .logo-bg { fill: var(--accent); }
 .brand-mark .logo-fg { fill: none; stroke: var(--accent-ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 .brand-mark .logo-dot { fill: var(--accent-ink); }
+.brand-mark .logo-bar { fill: var(--accent-ink); fill-opacity: .2; }
 .brand-name {
   font-family: var(--font-serif);
   font-size: 1.3rem;

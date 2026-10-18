@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!--
+    Logo anterior d'EducApps (fins a l'octubre de 2026), desat per poder-lo recuperar.
+    Per tornar-hi: substitueix assets/favicon.svg per aquest fitxer i, a la capçalera de cada pàgina
+    (svg.brand-mark), posa-hi aquestes tres línies en lloc de les actuals:
+      <rect x="2" y="2" width="28" height="28" rx="8" class="logo-bg"/>
+      <path d="M9 23V9h14M9 16h9" class="logo-fg"/>
+      <circle cx="21.5" cy="21.5" r="2.5" class="logo-dot"/>
+  -->
+  <style>
+    .bg { fill: #1f5f5b; } .fg { fill: none; stroke: #fff; } .dot { fill: #fff; }
+    @media (prefers-color-scheme: dark) { .bg { fill: #72c4ba; } .fg { stroke: #0c1e1c; } .dot { fill: #0c1e1c; } }
+  </style>
+  <rect class="bg" x="2" y="2" width="28" height="28" rx="8"/>
+  <path class="fg" d="M9 23V9h14M9 16h9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="dot" cx="21.5" cy="21.5" r="2.5"/>
+</svg>
