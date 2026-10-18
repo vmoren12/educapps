@@ -684,18 +684,22 @@ a { color: inherit; }
 
 .card-ambit {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 7px;
   color: var(--strong);
   font-size: 0.75rem;
   font-weight: 650;
+  line-height: 16px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+/* Amb diversos àmbits el text pot ocupar dues línies: el punt no s'encongeix i queda a la primera. */
 .card-ambit::before {
   content: "";
+  flex: none;
   width: 6px;
   height: 6px;
+  margin-top: 5px;
   border-radius: 50%;
   background: currentColor;
 }
