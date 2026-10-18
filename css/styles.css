@@ -890,7 +890,22 @@ a { color: inherit; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; align-content: start; }
 .footer-links a { color: var(--ink-2); text-decoration: none; }
 .footer-links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-.footer-note { grid-column: 1 / -1; padding-top: 16px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 0.8125rem; }
+.footer-note { max-width: 52ch; margin-top: 10px; color: var(--ink-3); font-size: 0.8125rem; }
+.footer-bottom {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: 0.8125rem;
+}
+.footer-meta { display: flex; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.footer-meta li + li::before { content: "·"; margin-inline: 8px; }
+.footer-meta a { color: inherit; text-underline-offset: 3px; }
+.footer-meta a:hover { color: var(--ink); }
 
 .toast {
   position: fixed;
