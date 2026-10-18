@@ -239,14 +239,61 @@ function setNewImageUrl(url) {
   image.url = url;
 }
 
-async function onImageSelected() {
+function onImageSelected() {
   const input = $('f-imatge');
   const file = input.files?.[0];
   input.value = '';
+  if (file) useImageFile(file);
+}
+
+/** Primera imatge d'un porta-retalls (esdeveniment «paste»), com a fitxer. */
+function imageFromClipboardData(data) {
+  const item = [...(data?.items ?? [])].find((entry) => entry.kind === 'file' && entry.type.startsWith('image/'));
+  return item?.getAsFile() ?? null;
+}
+
+/** Ctrl+V (o ⌘V) a qualsevol lloc del formulari. En un camp de text, només si no s'hi enganxa text. */
+function onPaste(event) {
+  if ($('editor').hidden || $('f-imatge-pick').disabled) return;
+  const file = imageFromClipboardData(event.clipboardData);
   if (!file) return;
+  const target = event.target;
+  const inTextField = target instanceof HTMLElement && target.matches('input:not([type="checkbox"]):not([type="radio"]), textarea');
+  if (inTextField && event.clipboardData.types.includes('text/plain')) return;
+  event.preventDefault();
+  useImageFile(file);
+  $('f-imatge-preview').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/** Botó «Enganxa»: llegeix el porta-retalls amb l'API asíncrona (el navegador pot demanar permís). */
+async function pasteFromButton() {
+  const error = $('f-imatge-error');
+  error.textContent = '';
+  try {
+    const items = await navigator.clipboard.read();
+    for (const item of items) {
+      const type = item.types.find((t) => t.startsWith('image/'));
+      if (!type) continue;
+      const blob = await item.getType(type);
+      await useImageFile(new File([blob], `captura.${type.split('/')[1]}`, { type }));
+      return;
+    }
+    error.textContent = 'Al porta-retalls no hi ha cap imatge. Fes una captura o copia una imatge i torna-ho a provar.';
+  } catch (e) {
+    console.warn('No s\'ha pogut llegir el porta-retalls:', e);
+    error.textContent = `El navegador no ha permès llegir el porta-retalls. Prova d'enganxar la imatge amb ${pasteShortcut()}.`;
+  }
+}
+
+function pasteShortcut() {
+  return /Mac|iPhone|iPad/.test(navigator.userAgentData?.platform ?? navigator.platform ?? '') ? '⌘V' : 'Ctrl+V';
+}
+
+async function useImageFile(file) {
   const error = $('f-imatge-error');
   error.textContent = '';
   $('f-imatge-pick').disabled = true;
+  $('f-imatge-paste').disabled = true;
   try {
     image.prepared = await prepareCoverImage(file);
     image.mode = 'new';
@@ -258,6 +305,7 @@ async function onImageSelected() {
     if (!(e instanceof ImageError)) console.error(e);
   } finally {
     $('f-imatge-pick').disabled = false;
+    $('f-imatge-paste').disabled = false;
   }
   updateImageField();
   updatePreview();
@@ -401,6 +449,12 @@ function bindEvents() {
   $('f-imatge-pick').addEventListener('click', () => $('f-imatge').click());
   $('f-imatge').addEventListener('change', onImageSelected);
   $('f-imatge-remove').addEventListener('click', removeImage);
+  $('f-imatge-shortcut').textContent = pasteShortcut();
+  // El botó només apareix si el navegador permet llegir imatges del porta-retalls.
+  $('f-imatge-paste').hidden = !navigator.clipboard?.read;
+  $('f-imatge-paste-or').hidden = !navigator.clipboard?.read;
+  $('f-imatge-paste').addEventListener('click', pasteFromButton);
+  document.addEventListener('paste', onPaste);
 
   form.addEventListener('input', () => {
     dirty = true;

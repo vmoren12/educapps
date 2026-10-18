@@ -5,7 +5,7 @@ import { buildFacets, updateFacets, renderChips, createCard, setFavoriteButton, 
 import { debounce, plural } from './utils.js';
 import { loadCatalogData } from './data-source.js';
 import { setupShell, showToast } from './shell.js';
-import { getClient, hasStoredSession, storedUser, friendlyError } from './auth.js';
+import { getClient, hasStoredSession, storedUser, friendlyError, SESSION_STORAGE_KEY } from './auth.js';
 
 const PAGE_SIZE = 24;
 
@@ -51,6 +51,7 @@ const els = {
     open: $('#dialog-open'),
     code: $('#dialog-code'),
     share: $('#dialog-share'),
+    edit: $('#dialog-edit'),
     fav: $('#dialog-fav'),
   },
 };
@@ -60,6 +61,8 @@ const favorites = createFavorites({
 });
 const sessionUser = storedUser();
 if (sessionUser) favorites.preload(sessionUser.id);
+let accountUserId = null; // persona amb qui s'han sincronitzat els favorits i les aplicacions pròpies
+let ownApps = new Set(); // identificadors (uuid) de les aplicacions publicades de la persona amb sessió
 const cards = new Map();
 let catalog;
 let state;
@@ -94,19 +97,63 @@ async function init() {
   update({ resetPage: true, syncUrl: false });
 
   if (state.app) openApp(state.app, { focusReturn: null });
-  if (sessionUser) syncFavorites();
+  if (sessionUser) syncAccount();
 }
 
-/** Amb sessió, els favorits es llegeixen i es desen al compte. Sense sessió vàlida, al navegador. */
-async function syncFavorites() {
+/* Compte ------------------------------------------------------------------------ */
+
+/**
+ * Amb sessió, els favorits es llegeixen i es desen al compte (els mateixos a qualsevol dispositiu)
+ * i es marquen les aplicacions pròpies per poder-les editar des de la fitxa.
+ * Sense sessió vàlida, els favorits són al navegador.
+ */
+async function syncAccount() {
   try {
     const client = await getClient();
     const { data } = await client.auth.getSession();
-    if (data.session) await favorites.connect(client, data.session.user.id);
-    else favorites.useLocal();
+    const user = data.session?.user;
+    if (!user) {
+      signedOut();
+      return;
+    }
+    accountUserId = user.id;
+    await Promise.all([favorites.connect(client, user.id), loadOwnApps(client, user.id)]);
   } catch (error) {
-    console.error('No s\'han pogut sincronitzar els favorits:', error);
+    console.error('No s\'ha pogut sincronitzar el compte:', error);
     favorites.useLocal();
+  }
+}
+
+async function loadOwnApps(client, userId) {
+  const { data, error } = await client.from('apps').select('id').eq('propietari', userId).eq('estat', 'publicada');
+  if (error) {
+    console.error('No s\'han pogut carregar les aplicacions pròpies:', error);
+    return;
+  }
+  if (userId !== accountUserId) return;
+  ownApps = new Set(data.map((row) => row.id));
+  updateEditButton();
+}
+
+function signedOut() {
+  accountUserId = null;
+  ownApps = new Set();
+  favorites.useLocal();
+  updateEditButton();
+}
+
+/**
+ * Comprova si la sessió ha canviat (entrada o sortida en una altra pestanya) i, si és la mateixa,
+ * torna a llegir els favorits del compte per veure els canvis fets des d'altres dispositius.
+ */
+function refreshAccount() {
+  const user = storedUser();
+  if (!user) {
+    if (accountUserId || favorites.synced) signedOut();
+  } else if (user.id !== accountUserId || !favorites.synced) {
+    syncAccount();
+  } else {
+    favorites.refresh();
   }
 }
 
@@ -291,11 +338,23 @@ function openApp(id, { focusReturn = document.activeElement } = {}) {
   returnFocus = focusReturn;
   state.app = id;
   fillDialog(els.dialog, catalog, app);
+  updateEditButton();
   resetReport(app);
   setFavoriteButton(els.dialog.fav, favorites.has(id), app.titol);
   document.title = `${app.titol} · EducApps`;
   if (!els.dialog.dialog.open) els.dialog.dialog.showModal();
   writeUrlState(state);
+}
+
+/** A la fitxa d'una aplicació pròpia es mostra l'enllaç per editar-la. */
+function updateEditButton() {
+  const { edit } = els.dialog;
+  const app = catalog && state?.app ? catalog.apps.find((a) => a.id === state.app) : null;
+  const editable = Boolean(app?.uuid && ownApps.has(app.uuid));
+  edit.hidden = !editable;
+  if (!editable) return;
+  edit.href = `proposa.html?id=${encodeURIComponent(app.uuid)}`;
+  edit.setAttribute('aria-label', `Edita ${app.titol}`);
 }
 
 /* Informes de problemes ------------------------------------------------------------ */
@@ -509,6 +568,17 @@ function bindEvents() {
       els.search.focus();
       els.search.select();
     }
+  });
+
+  // Compte: entrar o sortir en una altra pestanya, i canvis de favorits des d'altres dispositius.
+  window.addEventListener('storage', (event) => {
+    if (event.key === SESSION_STORAGE_KEY || event.key === null) refreshAccount();
+  });
+  let lastAccountCheck = Date.now();
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || Date.now() - lastAccountCheck < 15000) return;
+    lastAccountCheck = Date.now();
+    refreshAccount();
   });
 
   // Navegació enrere/endavant

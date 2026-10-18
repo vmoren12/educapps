@@ -13,6 +13,8 @@ export function createFavorites({ onSyncError } = {}) {
   let validIds = null;
   let remote = null; // { client, userId } quan els favorits són al compte
   const queued = new Map(); // canvis fets abans de confirmar la sessió: id → afegit (cert) o tret (fals)
+  let revision = 0; // augmenta amb cada canvi local, per descartar lectures del compte que hagin quedat antigues
+  let pendingWrites = 0;
   const listeners = new Set();
   const emit = (changedId) => listeners.forEach((fn) => fn(changedId));
   const save = () => storage.set(key, [...ids]);
@@ -26,11 +28,21 @@ export function createFavorites({ onSyncError } = {}) {
 
   async function writeRemote(id, active) {
     const { client, userId } = remote;
-    const { error } = active
-      ? await client.from('favorits').upsert({ usuari: userId, app_slug: id }, { onConflict: 'usuari,app_slug', ignoreDuplicates: true })
-      : await client.from('favorits').delete().eq('usuari', userId).eq('app_slug', id);
+    let error;
+    pendingWrites++;
+    try {
+      ({ error } = active
+        ? await client.from('favorits').upsert({ usuari: userId, app_slug: id }, { onConflict: 'usuari,app_slug', ignoreDuplicates: true })
+        : await client.from('favorits').delete().eq('usuari', userId).eq('app_slug', id));
+    } catch (networkError) {
+      error = networkError;
+    } finally {
+      pendingWrites--;
+      revision++;
+    }
     if (!error) return;
     console.error('No s\'ha pogut desar el favorit:', error);
+    if (remote?.userId !== userId) return; // mentrestant s'ha sortit del compte
     // Desfà el canvi perquè la interfície reflecteixi el que hi ha al compte.
     if (active) ids.delete(id);
     else ids.add(id);
@@ -52,6 +64,7 @@ export function createFavorites({ onSyncError } = {}) {
       const active = !ids.has(id);
       if (active) ids.add(id);
       else ids.delete(id);
+      revision++;
       save();
       emit(id);
       if (remote) writeRemote(id, active);
@@ -109,6 +122,24 @@ export function createFavorites({ onSyncError } = {}) {
       save();
       emit(null);
       return true;
+    },
+    /** Torna a llegir els favorits del compte, per mostrar els canvis fets des d'altres dispositius. */
+    async refresh() {
+      if (!remote || pendingWrites) return;
+      const { client, userId } = remote;
+      const start = revision;
+      const { data, error } = await client.from('favorits').select('app_slug');
+      if (error) {
+        console.warn('No s\'han pogut actualitzar els favorits del compte:', error);
+        return;
+      }
+      // Si mentrestant s'ha marcat o desmarcat algun favorit, o ha canviat la sessió, la lectura no val.
+      if (remote?.userId !== userId || revision !== start || pendingWrites) return;
+      const next = new Set(keepValid(data.map((row) => row.app_slug)));
+      if (next.size === ids.size && [...next].every((id) => ids.has(id))) return;
+      ids = next;
+      save();
+      emit(null);
     },
     /** Torna als favorits del navegador (sense sessió vàlida o sense connexió amb el compte). */
     useLocal() {
