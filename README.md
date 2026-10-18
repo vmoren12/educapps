@@ -25,7 +25,7 @@ Repositori obert d'aplicacions educatives creades i recomanades per la comunitat
 
 - **Web estàtica** a GitHub Pages, sense procés de compilació.
 - **Supabase** (PostgreSQL a la UE) per al catàleg, els comptes i la moderació. Les regles d'accés són a la base de dades (Row Level Security): vegeu [supabase/sql/](supabase/sql/README.md).
-- **Còpia local** `data/apps.json`: si Supabase no respon, la web la fa servir automàticament.
+- **Còpia local** `data/apps.json`, actualitzada cada dia des de Supabase: si Supabase no respon, la web la fa servir automàticament.
 
 ## Estructura
 
@@ -57,9 +57,11 @@ Repositori obert d'aplicacions educatives creades i recomanades per la comunitat
 ├── vendor/                 supabase-js (versió fixada, vegeu vendor/README.md)
 ├── supabase/sql/           Scripts de la base de dades, numerats
 ├── supabase/plantilles/    Correus d'accés en català (per enganxar a Supabase)
-├── data/apps.json          Còpia local del catàleg
-├── scripts/validate-apps.mjs   Validador de la còpia local
-└── .github/                Plantilles d'issues i PR, validació automàtica
+├── data/apps.json          Còpia local del catàleg (generada cada dia; no l'editis)
+├── scripts/
+│   ├── sync-catalog.mjs    Actualitza la còpia local des de Supabase
+│   └── validate-apps.mjs   Validador de la còpia local
+└── .github/                Plantilles d'issues i PR, validació i còpia diària
 ```
 
 ## Executar en local
@@ -78,32 +80,19 @@ I obre <http://localhost:8000>.
 
 La via principal és la web: **Afegeix la teva app** → entra amb el teu correu → omple el formulari. L'aplicació queda pendent fins que un moderador la publica.
 
-Alternatives: obrir una [proposta a GitHub](https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml), o editar `data/apps.json` amb una *pull request* (aquest fitxer és la còpia de reserva). Detalls a [CONTRIBUTING.md](CONTRIBUTING.md).
+Alternativa: obrir una [proposta a GitHub](https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml). Detalls a [CONTRIBUTING.md](CONTRIBUTING.md).
 
-```json
-{
-  "id": "fraccions-visuals",
-  "titol": "Fraccions visuals",
-  "descripcio": "Representa i compara fraccions amb models d'àrea i recta numèrica.",
-  "detall": "Text llarg opcional que es mostra a la fitxa.",
-  "url": "https://usuari.github.io/fraccions/",
-  "codi": "https://github.com/usuari/fraccions",
-  "autor": { "nom": "Nom Cognom", "url": "https://..." },
-  "ambit": "matematiques",
-  "nivells": ["primaria"],
-  "idiomes": ["ca"],
-  "etiquetes": ["fraccions", "manipulables"],
-  "afegit": "2026-10-16"
-}
-```
+## Còpia diària del catàleg
 
-Valida els canvis abans de publicar-los:
+`data/apps.json` **es genera automàticament**: no l'editis a mà, perquè els canvis es perdrien. Cada dia, el flux [.github/workflows/sync.yml](.github/workflows/sync.yml) executa `scripts/sync-catalog.mjs`, que llegeix les aplicacions publicades i les taxonomies de Supabase, valida el resultat amb `scripts/validate-apps.mjs` i, si hi ha canvis, en fa un commit. Es pot executar a mà des de *Actions → Còpia diària del catàleg → Run workflow*, o en local:
 
 ```bash
-node scripts/validate-apps.mjs
+node scripts/sync-catalog.mjs
 ```
 
-Les taxonomies (`ambits`, `nivells`, `idiomes`) es defineixen al mateix fitxer. Per afegir un àmbit nou, afegeix-lo a `ambits` i defineix-ne els colors a `css/styles.css` (variables `--c-<id>` i `--c-<id>-tint`, en tema clar i fosc).
+La consulta diària també evita que el projecte gratuït de Supabase es posi en pausa per inactivitat. GitHub desactiva els fluxos programats d'un repositori sense activitat durant 60 dies (n'avisa per correu): si passa, cal tornar-lo a activar des de la pestanya *Actions*.
+
+Les taxonomies (`ambits`, `nivells`, `idiomes`) es gestionen a Supabase. Per afegir un àmbit nou, cal afegir-lo a la taula `ambits` i definir-ne els colors a `css/styles.css` (variables `--c-<id>` i `--c-<id>-tint`, en tema clar i fosc).
 
 ## Publicació
 

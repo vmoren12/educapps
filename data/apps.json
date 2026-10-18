@@ -33,7 +33,7 @@
       "ambit": "ciencies",
       "nivells": ["primaria", "eso", "batxillerat"],
       "idiomes": ["ca", "es", "en", "fr"],
-      "etiquetes": ["física", "química", "simulació", "laboratori virtual"],
+      "etiquetes": ["física", "laboratori virtual", "química", "simulació"],
       "afegit": "2026-01-12"
     },
     {
@@ -46,7 +46,7 @@
       "ambit": "matematiques",
       "nivells": ["primaria", "eso", "batxillerat"],
       "idiomes": ["ca", "es", "en", "fr"],
-      "etiquetes": ["geometria", "funcions", "àlgebra", "estadística"],
+      "etiquetes": ["àlgebra", "estadística", "funcions", "geometria"],
       "afegit": "2026-01-15"
     },
     {
@@ -58,7 +58,7 @@
       "ambit": "matematiques",
       "nivells": ["eso", "batxillerat"],
       "idiomes": ["ca", "es", "en", "fr"],
-      "etiquetes": ["funcions", "gràfics", "calculadora"],
+      "etiquetes": ["calculadora", "funcions", "gràfics"],
       "afegit": "2026-02-03"
     },
     {
@@ -72,7 +72,7 @@
       "ambit": "tecnologia",
       "nivells": ["primaria", "eso"],
       "idiomes": ["ca", "es", "en", "fr"],
-      "etiquetes": ["programació", "blocs", "pensament computacional", "jocs"],
+      "etiquetes": ["blocs", "jocs", "pensament computacional", "programació"],
       "afegit": "2026-02-10"
     },
     {
@@ -85,7 +85,7 @@
       "ambit": "tecnologia",
       "nivells": ["primaria", "eso"],
       "idiomes": ["ca", "es", "en", "fr"],
-      "etiquetes": ["programació", "blocs", "bucles", "condicionals"],
+      "etiquetes": ["blocs", "bucles", "condicionals", "programació"],
       "afegit": "2026-02-18"
     },
     {
@@ -98,7 +98,7 @@
       "ambit": "ciencies",
       "nivells": ["primaria", "eso", "batxillerat"],
       "idiomes": ["en", "es", "fr"],
-      "etiquetes": ["astronomia", "planetari", "constel·lacions"],
+      "etiquetes": ["astronomia", "constel·lacions", "planetari"],
       "afegit": "2026-03-02"
     },
     {
@@ -110,7 +110,7 @@
       "ambit": "arts",
       "nivells": ["infantil", "primaria", "eso"],
       "idiomes": ["en", "es", "fr"],
-      "etiquetes": ["música", "ritme", "so", "composició"],
+      "etiquetes": ["composició", "música", "ritme", "so"],
       "afegit": "2026-03-09"
     },
     {
@@ -122,7 +122,7 @@
       "ambit": "ciencies",
       "nivells": ["eso", "batxillerat"],
       "idiomes": ["ca", "es", "en", "fr"],
-      "etiquetes": ["química", "elements", "taula periòdica"],
+      "etiquetes": ["elements", "química", "taula periòdica"],
       "afegit": "2026-03-20"
     },
     {
@@ -135,7 +135,7 @@
       "ambit": "tecnologia",
       "nivells": ["eso", "batxillerat", "fp"],
       "idiomes": ["en", "es", "fr"],
-      "etiquetes": ["electricitat", "electrònica", "circuits", "simulació"],
+      "etiquetes": ["circuits", "electricitat", "electrònica", "simulació"],
       "afegit": "2026-04-01"
     },
     {
@@ -147,7 +147,7 @@
       "ambit": "ciencies",
       "nivells": ["batxillerat"],
       "idiomes": ["en"],
-      "etiquetes": ["física", "cinemàtica", "òptica", "simulació"],
+      "etiquetes": ["cinemàtica", "física", "òptica", "simulació"],
       "afegit": "2026-04-14"
     },
     {
@@ -160,7 +160,7 @@
       "ambit": "eines",
       "nivells": ["primaria", "eso", "batxillerat", "fp"],
       "idiomes": ["ca", "es", "en", "fr"],
-      "etiquetes": ["pissarra", "esquemes", "col·laboració", "mapes conceptuals"],
+      "etiquetes": ["col·laboració", "esquemes", "mapes conceptuals", "pissarra"],
       "afegit": "2026-04-22"
     },
     {
@@ -172,7 +172,7 @@
       "ambit": "llengues",
       "nivells": ["primaria", "eso", "batxillerat", "fp"],
       "idiomes": ["ca"],
-      "etiquetes": ["ortografia", "gramàtica", "escriptura", "català"],
+      "etiquetes": ["català", "escriptura", "gramàtica", "ortografia"],
       "afegit": "2026-05-06"
     },
     {
@@ -184,7 +184,7 @@
       "ambit": "llengues",
       "nivells": ["primaria", "eso", "batxillerat", "fp"],
       "idiomes": ["ca"],
-      "etiquetes": ["diccionari", "lèxic", "normativa", "català"],
+      "etiquetes": ["català", "diccionari", "lèxic", "normativa"],
       "afegit": "2026-05-12"
     },
     {
@@ -196,7 +196,7 @@
       "ambit": "matematiques",
       "nivells": ["infantil", "primaria"],
       "idiomes": ["en"],
-      "etiquetes": ["manipulables", "càlcul", "jocs", "numeració"],
+      "etiquetes": ["càlcul", "jocs", "manipulables", "numeració"],
       "afegit": "2026-05-27"
     },
     {
@@ -208,7 +208,7 @@
       "ambit": "tecnologia",
       "nivells": ["primaria", "eso", "fp"],
       "idiomes": ["ca", "es", "en", "fr"],
-      "etiquetes": ["disseny 3D", "impressió 3D", "Arduino", "robòtica"],
+      "etiquetes": ["arduino", "disseny 3d", "impressió 3d", "robòtica"],
       "afegit": "2026-06-08"
     },
     {
@@ -233,7 +233,7 @@
       "ambit": "socials",
       "nivells": ["batxillerat", "fp"],
       "idiomes": ["en"],
-      "etiquetes": ["dades", "canvi climàtic", "ODS", "geografia"],
+      "etiquetes": ["canvi climàtic", "dades", "geografia", "ods"],
       "afegit": "2026-07-03"
     },
     {
@@ -257,8 +257,23 @@
       "ambit": "eines",
       "nivells": ["infantil", "primaria", "eso"],
       "idiomes": ["ca", "es", "en", "fr"],
-      "etiquetes": ["gestió d'aula", "temporitzador", "sorteig"],
+      "etiquetes": ["gestió d'aula", "sorteig", "temporitzador"],
       "afegit": "2026-09-15"
+    },
+    {
+      "id": "aulamap",
+      "titol": "Aulamap",
+      "descripcio": "Planificador de distribució d'aula i formació d'equips de treball.",
+      "detall": "Planificador de distribució d'aula i formació d'equips de treball.\n\nAulaMap és una aplicació web per al professorat que permet dibuixar la distribució dels pupitres d'una aula, col·locar-hi l'alumnat tenint en compte quins alumnes han de seure junts o separats, i formar equips de treball equilibrats.\n\nFunciona íntegrament al navegador: no cal servidor ni registre i les dades no surten mai del dispositiu (es desen a l'emmagatzematge local del navegador).",
+      "url": "https://vmoren12.github.io/aulamap/",
+      "codi": "https://github.com/vmoren12/aulamap",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "eines",
+      "nivells": ["infantil", "primaria", "eso", "batxillerat", "fp"],
+      "idiomes": ["ca"],
+      "etiquetes": [],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/f453bede-81c7-4ded-9eb8-96208d7aaf70.webp",
+      "afegit": "2026-10-16"
     }
   ]
 }

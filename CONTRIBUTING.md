@@ -10,34 +10,17 @@ Gràcies per voler fer créixer EducApps. Totes les aportacions són benvingudes
 - L'enllaç és públic i estable.
 - Es prioritzen les aplicacions creades per docents i les de codi obert.
 
-## Proposar una aplicació sense Git
+## Proposar una aplicació
 
-Omple el formulari de [nova aplicació](https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml). Algú de l'equip la revisarà i l'afegirà al catàleg.
+La via principal és la web: **Afegeix la teva app** a <https://educapps.cat>, entra amb el teu correu i omple el formulari. L'aplicació queda pendent fins que un moderador la revisa i la publica. Des de «El meu compte» la pots editar o esborrar quan vulguis.
 
-## Afegir-la directament
+Si no vols crear un compte, omple el formulari de [nova aplicació](https://github.com/vmoren12/educapps/issues/new?template=nova-aplicacio.yml) a GitHub i algú de l'equip l'afegirà.
 
-1. Fes un *fork* del repositori i crea una branca.
-2. Afegeix l'entrada a la llista `apps` de `data/apps.json`.
-3. Executa `node scripts/validate-apps.mjs`.
-4. Obre una *pull request*. La validació s'executa automàticament.
+## Corregir dades d'una aplicació
 
-### Camps
+Si és teva, edita-la des de «El meu compte». Si no, fes servir «Informa d'un problema» a la fitxa de l'aplicació.
 
-| Camp | Obligatori | Descripció |
-| --- | --- | --- |
-| `id` | Sí | Identificador únic en minúscules i guions. Defineix l'URL de la fitxa. |
-| `titol` | Sí | Nom de l'aplicació. |
-| `descripcio` | Sí | Resum de 160 caràcters com a màxim. Es mostra a la targeta. |
-| `detall` | No | Descripció llarga per a la fitxa de detall. |
-| `url` | Sí | Adreça pública de l'aplicació. |
-| `codi` | No | Repositori del codi font. |
-| `autor.nom` | Sí | Persona, centre o col·lectiu autor. |
-| `autor.url` | No | Web o perfil de l'autoria. |
-| `ambit` | Sí | Un `id` de la llista `ambits`. |
-| `nivells` | Sí | Un o més `id` de la llista `nivells`. |
-| `idiomes` | Sí | Un o més `id` de la llista `idiomes`. |
-| `etiquetes` | No | Paraules clau que ajuden a la cerca. |
-| `afegit` | Sí | Data d'incorporació, en format `AAAA-MM-DD`. |
+El fitxer `data/apps.json` és una còpia de reserva que **es genera cada dia automàticament** a partir de Supabase: no l'editis amb una *pull request*, perquè els canvis es perdrien.
 
 ## Millores de la web
 

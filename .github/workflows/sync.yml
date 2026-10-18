@@ -1,0 +1,39 @@
+name: Còpia diària del catàleg
+
+# Cada dia llegeix el catàleg publicat a Supabase i actualitza data/apps.json (la còpia de reserva
+# de la web). La consulta diària també evita que el projecte gratuït de Supabase es posi en pausa.
+on:
+  schedule:
+    - cron: "17 4 * * *" # 04:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-catalog
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Llegeix el catàleg de Supabase
+        run: node scripts/sync-catalog.mjs
+      - name: Valida la còpia
+        run: node scripts/validate-apps.mjs
+      - name: Desa els canvis
+        run: |
+          if git diff --quiet -- data/apps.json; then
+            echo "La còpia ja estava al dia."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898783+github-actions[bot]@users.noreply.github.com"
+          git add data/apps.json
+          git commit -m "Actualitza la còpia local del catàleg"
+          git push
