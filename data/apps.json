@@ -309,6 +309,53 @@
       "etiquetes": ["fotos", "orla"],
       "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/2d25c839-d46b-469e-a20d-8a8d254cc526.webp",
       "afegit": "2026-10-18"
+    },
+    {
+      "id": "inclusia",
+      "titol": "Inclusia",
+      "descripcio": "Inclusia és una web/app per a docents que recull prompts curts, específics i ben estructurats per fer servir amb qualsevol IA",
+      "detall": "Inclusia és una web/app per a docents que recull prompts curts, específics i ben estructurats per fer servir amb qualsevol IA (ChatGPT, Claude, Gemini, Copilot…) i adaptar materials que ja tens (textos, fitxes, exàmens, presentacions), crear materials de zero (lectura fàcil, històries socials, agendes visuals, glossaris, rúbriques…), avaluar i planificar (instruments alternatius, retorn a l'alumne, mesures d'aula, PSI, comunicació amb famílies), per a qualsevol perfil: TEA, TDAH, dislèxia, discalcúlia, TDL, discapacitat intel·lectual, alumnat nouvingut, discapacitat visual, auditiva o motriu, altes capacitats, benestar emocional i DUA.",
+      "url": "https://vmoren12.github.io/inclusia/",
+      "codi": "https://github.com/vmoren12/inclusia",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "matematiques",
+      "ambits": ["matematiques", "ciencies", "llengues", "socials", "tecnologia", "arts", "eines"],
+      "nivells": ["primaria", "eso", "batxillerat", "fp"],
+      "idiomes": ["ca"],
+      "etiquetes": ["inclusió", "prompts"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/61c57d29-49aa-49ba-9aac-083c29cab64a.webp",
+      "afegit": "2026-10-18"
+    },
+    {
+      "id": "pla-suport-individualitzat",
+      "titol": "Pla Suport Individualitzat",
+      "descripcio": "Eina d'elaboració, seguiment i impressió de plans de suport individualitzat (PI) per a l'educació bàsica a Catalunya —primària i ESO—.",
+      "detall": "Eina d'elaboració, seguiment i impressió de plans de suport individualitzat (PI) per a l'educació bàsica a Catalunya —primària i ESO—, amb el currículum del Decret 175/2022 integrat i un banc de mesures i suports basat en el Decret 150/2017.",
+      "url": "https://vmoren12.github.io/psi/",
+      "codi": "https://github.com/vmoren12/psi",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "eines",
+      "ambits": ["eines"],
+      "nivells": ["primaria", "eso"],
+      "idiomes": ["ca"],
+      "etiquetes": ["pi", "psi"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/36984da7-0a0a-40eb-8ad5-56fc353e57ff.webp",
+      "afegit": "2026-10-18"
+    },
+    {
+      "id": "tutoria",
+      "titol": "TutorIA",
+      "descripcio": "Aplicació per a tutors i tutores d'ESO: cerca, crea i edita propostes de tutoria, i munta sessions a partir d'un ampli catàleg.",
+      "url": "https://vmoren12.github.io/tutoria/#/cataleg",
+      "codi": "https://github.com/vmoren12/tutoria",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "eines",
+      "ambits": ["eines"],
+      "nivells": ["primaria", "eso", "fp"],
+      "idiomes": ["ca", "es"],
+      "etiquetes": ["dinàmica", "dinàmiques", "tutoria"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/dcaf93b0-761a-481a-859b-80547edd8af5.webp",
+      "afegit": "2026-10-18"
     }
   ]
 }
