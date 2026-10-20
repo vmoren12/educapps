@@ -356,6 +356,20 @@
       "etiquetes": ["dinàmica", "dinàmiques", "tutoria"],
       "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/dcaf93b0-761a-481a-859b-80547edd8af5.webp",
       "afegit": "2026-10-18"
+    },
+    {
+      "id": "cercles-de-conversa",
+      "titol": "Cercles de conversa",
+      "descripcio": "Recull de temes i preguntes per dinamitzar converses, cercles de diàleg, coneixement mutu de l'alumnat, etc. Permet selecció aleatòria o planificar una sessió.",
+      "url": "https://cercles.netlify.app/",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "llengues",
+      "ambits": ["llengues", "eines"],
+      "nivells": ["primaria", "eso", "batxillerat", "fp"],
+      "idiomes": ["ca"],
+      "etiquetes": [],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/d2ccfee1-7159-4111-ad71-7cca8d6638c2.webp",
+      "afegit": "2026-10-19"
     }
   ]
 }
