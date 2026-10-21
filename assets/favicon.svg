@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -2 34 34">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -1 32 32">
   <style>
     .bar { fill: #1f5f5b; } .knob { fill: #fff; }
     @media (prefers-color-scheme: dark) { .bar { fill: #72c4ba; } .knob { fill: #0c1e1c; } }
   </style>
-  <rect class="bar" width="24" height="8" rx="4"/>
-  <rect class="bar" x="6" y="11" width="28" height="8" rx="4"/>
-  <circle class="knob" cx="30" cy="15" r="2.8"/>
-  <rect class="bar" y="22" width="24" height="8" rx="4"/>
+  <rect class="bar" width="28" height="8" rx="4"/>
+  <rect class="bar" y="11" width="28" height="8" rx="4"/>
+  <circle class="knob" cx="24" cy="15" r="2.8"/>
+  <rect class="bar" y="22" width="28" height="8" rx="4"/>
 </svg>

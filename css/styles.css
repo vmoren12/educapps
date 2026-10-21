@@ -300,7 +300,7 @@ a { color: inherit; }
   border-radius: 8px;
 }
 /* Logo: tres barres i la del mig és un interruptor activat. L'anterior és a assets/logo-anterior.svg. */
-.brand-mark { width: 31px; height: 27px; }
+.brand-mark { width: 25px; height: 27px; }
 .brand-mark .logo-bar { fill: var(--accent); }
 .brand-mark .logo-knob { fill: var(--accent-ink); }
 .brand-name {
