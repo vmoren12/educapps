@@ -4,7 +4,7 @@ import { prepareCatalog } from './catalog.js';
 import { createCard, renderCover } from './render.js';
 import { debounce, slugify, isHttpsUrl, isHttpUrl } from './utils.js';
 import { COVERS_BUCKET, coverUrl } from './config.js';
-import { prepareCoverImage, ImageError } from './image-tools.js';
+import { prepareCoverImage, captureTabCover, canCaptureTab, ImageError } from './image-tools.js';
 
 const $ = (id) => document.getElementById(id);
 const editId = new URLSearchParams(window.location.search).get('id');
@@ -232,6 +232,11 @@ function updateImageField() {
   $('f-imatge-pick').textContent = image.url ? 'Canvia la imatge' : 'Tria una imatge';
   $('f-imatge-remove').hidden = !image.url;
   $('f-consent-wrap').hidden = image.mode !== 'new';
+
+  const url = readForm().url;
+  const open = $('f-imatge-open');
+  open.hidden = !isHttpsUrl(url);
+  if (!open.hidden) open.href = url;
 }
 
 function setNewImageUrl(url) {
@@ -289,23 +294,30 @@ function pasteShortcut() {
   return /Mac|iPhone|iPad/.test(navigator.userAgentData?.platform ?? navigator.platform ?? '') ? '⌘V' : 'Ctrl+V';
 }
 
-async function useImageFile(file) {
+function useImageFile(file) {
+  return useNewImage(() => prepareCoverImage(file));
+}
+
+/** Prepara una imatge nova (d'un fitxer o d'una captura). Si `prepare` retorna null, no canvia res. */
+async function useNewImage(prepare) {
   const error = $('f-imatge-error');
+  const buttons = [$('f-imatge-pick'), $('f-imatge-paste'), $('f-imatge-capture')];
   error.textContent = '';
-  $('f-imatge-pick').disabled = true;
-  $('f-imatge-paste').disabled = true;
+  buttons.forEach((button) => (button.disabled = true));
   try {
-    image.prepared = await prepareCoverImage(file);
-    image.mode = 'new';
-    setNewImageUrl(URL.createObjectURL(image.prepared.blob));
-    $('f-consent').checked = false;
-    dirty = true;
+    const prepared = await prepare();
+    if (prepared) {
+      image.prepared = prepared;
+      image.mode = 'new';
+      setNewImageUrl(URL.createObjectURL(prepared.blob));
+      $('f-consent').checked = false;
+      dirty = true;
+    }
   } catch (e) {
     error.textContent = e instanceof ImageError ? e.message : "No s'ha pogut processar la imatge.";
     if (!(e instanceof ImageError)) console.error(e);
   } finally {
-    $('f-imatge-pick').disabled = false;
-    $('f-imatge-paste').disabled = false;
+    buttons.forEach((button) => (button.disabled = false));
   }
   updateImageField();
   updatePreview();
@@ -457,6 +469,12 @@ function bindEvents() {
   $('f-imatge-paste-or').hidden = !navigator.clipboard?.read;
   $('f-imatge-paste').addEventListener('click', pasteFromButton);
   document.addEventListener('paste', onPaste);
+  if (canCaptureTab()) {
+    $('f-imatge-capture').hidden = false;
+    $('f-imatge-capture-hint').hidden = false;
+    // Sense cap «await» abans: el navegador només obre el selector de pestanyes des d'un clic.
+    $('f-imatge-capture').addEventListener('click', () => useNewImage(captureTabCover));
+  }
 
   form.addEventListener('input', () => {
     dirty = true;

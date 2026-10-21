@@ -130,9 +130,11 @@
                 <p class="field-label" id="f-imatge-label">Captura o imatge representativa <span class="field-optional">Opcional</span></p>
                 <p class="field-hint" id="f-imatge-hint">JPG, PNG o WebP. Es retallarà i comprimirà automàticament (1200 × 525 px). Si no en poses cap, es crearà una portada geomètrica.</p>
                 <p class="field-hint" id="f-imatge-paste-hint">Si has fet una captura de pantalla, la pots enganxar amb <kbd class="kbd" id="f-imatge-shortcut">Ctrl+V</kbd><span id="f-imatge-paste-or" hidden> o amb el botó «Enganxa»</span>.</p>
+                <p class="field-hint image-field-capture" id="f-imatge-capture-hint" hidden>També pots capturar l'app directament: obre-la en una altra pestanya o fes servir una que ja tinguis oberta, prem «Captura una pestanya» i tria-la. Només es captura la part visible de la pàgina. Funciona amb Chrome i Edge d'ordinador. <a id="f-imatge-open" target="_blank" rel="noopener noreferrer" hidden>Obre l'app en una pestanya nova</a></p>
                 <div class="image-field-actions">
                   <button type="button" class="btn btn-outline btn-sm" id="f-imatge-pick" aria-describedby="f-imatge-hint f-imatge-error">Tria una imatge</button>
                   <button type="button" class="btn btn-outline btn-sm" id="f-imatge-paste" aria-describedby="f-imatge-paste-hint f-imatge-error" hidden>Enganxa</button>
+                  <button type="button" class="btn btn-outline btn-sm" id="f-imatge-capture" aria-describedby="f-imatge-capture-hint f-imatge-error" hidden>Captura una pestanya</button>
                   <button type="button" class="btn btn-outline btn-sm" id="f-imatge-remove" hidden>Treu la imatge</button>
                   <input type="file" id="f-imatge" accept="image/png,image/jpeg,image/webp" hidden>
                 </div>

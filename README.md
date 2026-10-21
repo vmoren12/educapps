@@ -16,7 +16,7 @@ Repositori obert d'aplicacions educatives creades i recomanades per la comunitat
 - **Responsive**, amb calaix de filtres a mòbil.
 - **Accessible**: navegació amb teclat (`/` per cercar), etiquetes ARIA, respecte per `prefers-reduced-motion`.
 - **Comptes de docents**: accés sense contrasenya (enllaç per correu), formulari amb vista prèvia en directe i pàgina «Les meves aplicacions» per seguir l'estat de revisió, editar i esborrar.
-- **Imatge de portada opcional**: es retalla i es comprimeix al navegador (WebP, 1200 × 525) abans de pujar-la. Sense imatge, es genera una portada geomètrica.
+- **Imatge de portada opcional**: un fitxer o una captura d'una pestanya oberta amb l'app (Chrome i Edge d'ordinador). Es retalla i es comprimeix al navegador (WebP, 1200 × 525) abans de pujar-la. Sense imatge, es genera una portada geomètrica.
 - **Moderació**: tota aplicació nova o editada queda pendent fins que un moderador l'aprova des del panell `moderacio.html` (publicar, rebutjar amb motiu, retirar, atendre informes).
 - **Informes de problemes**: des de la fitxa de cada aplicació, qualsevol persona registrada pot avisar d'un enllaç trencat o d'un contingut inadequat.
 - **Privacitat**: sense galetes, analítica ni peticions a tercers. Política de seguretat de contingut (CSP) estricta. Política de privacitat a `privacitat.html`.
@@ -43,7 +43,7 @@ Repositori obert d'aplicacions educatives creades i recomanades per la comunitat
 │   ├── compte.js           Accés, perfil i llistat propi
 │   ├── proposa.js          Formulari, validació i vista prèvia
 │   ├── moderacio.js        Panell de moderació
-│   ├── image-tools.js      Retall i compressió de la imatge de portada
+│   ├── image-tools.js      Captura, retall i compressió de la imatge de portada
 │   ├── auth.js             Client de Supabase (es carrega sota demanda)
 │   ├── data-source.js      Lectura del catàleg (Supabase o còpia local)
 │   ├── config.js           URL i clau pública de Supabase
