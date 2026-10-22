@@ -6,29 +6,25 @@ const TEMPLATE = 'problema-o-suggeriment.yml';
 
 export function setupFeedback() {
   const toggle = document.getElementById('feedback-toggle');
-  const panel = document.getElementById('feedback-panel');
+  const dialog = document.getElementById('feedback-dialog');
   const form = document.getElementById('feedback-form');
-  if (!toggle || !panel || !form) return;
+  if (!toggle || !dialog || !form) return;
   const text = document.getElementById('feedback-text');
   const error = document.getElementById('feedback-error');
   const pills = form.querySelector('.pills');
 
-  const setOpen = (open) => {
-    panel.hidden = !open;
-    toggle.setAttribute('aria-expanded', String(open));
-    if (open) {
-      form.querySelector('input[name="tipus"]').focus();
-    } else {
-      form.reset();
-      error.textContent = '';
-      markInvalid(pills, false);
-      markInvalid(text, false);
-    }
-  };
-
-  toggle.addEventListener('click', () => setOpen(panel.hidden));
-  document.getElementById('feedback-cancel').addEventListener('click', () => {
-    setOpen(false);
+  toggle.addEventListener('click', () => {
+    dialog.showModal();
+    form.querySelector('input[name="tipus"]').focus();
+  });
+  document.getElementById('feedback-close').addEventListener('click', () => dialog.close());
+  document.getElementById('feedback-cancel').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => {
+    form.reset();
+    error.textContent = '';
+    markInvalid(pills, false);
+    markInvalid(text, false);
     toggle.focus();
   });
 
@@ -51,8 +47,7 @@ export function setupFeedback() {
       navegador: navigator.userAgent,
     });
     window.open(`${ISSUE_URL}?${params}`, '_blank', 'noopener');
-    setOpen(false);
-    toggle.focus();
+    dialog.close();
   });
 }
 

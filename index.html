@@ -155,29 +155,8 @@
         <li><a href="proposa.html">Afegeix la teva aplicació</a></li>
         <li><a href="https://github.com/vmoren12/educapps" target="_blank" rel="noopener noreferrer">Codi font</a></li>
         <li><a href="privacitat.html">Privacitat</a></li>
-        <li><button type="button" class="footer-link-btn" id="feedback-toggle" aria-expanded="false" aria-controls="feedback-panel">Notifica un problema o suggeriment</button></li>
+        <li><button type="button" class="footer-link-btn" id="feedback-toggle" aria-haspopup="dialog">Notifica un problema o suggeriment</button></li>
       </ul>
-      <div class="footer-feedback" id="feedback-panel" hidden>
-        <form class="report-form" id="feedback-form" novalidate>
-          <fieldset class="field">
-            <legend class="field-label">Què vols notificar?</legend>
-            <div class="pills">
-              <label class="pill"><input type="radio" name="tipus" value="Problema"><span>Un problema del web</span></label>
-              <label class="pill"><input type="radio" name="tipus" value="Suggeriment"><span>Un suggeriment</span></label>
-            </div>
-          </fieldset>
-          <div class="field">
-            <label class="field-label" for="feedback-text">Explica-ho breument</label>
-            <textarea class="input" id="feedback-text" rows="3" maxlength="1500"></textarea>
-          </div>
-          <p class="field-hint">S'obrirà GitHub en una pestanya nova amb el text ja escrit; cal un compte gratuït per enviar-ho. Així en queda constància i se'n pot seguir la resposta.</p>
-          <p class="field-error" id="feedback-error" role="alert"></p>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary btn-sm">Continua a GitHub</button>
-            <button type="button" class="btn btn-outline btn-sm" id="feedback-cancel">Cancel·la</button>
-          </div>
-        </form>
-      </div>
       <div class="footer-bottom">
         <p>© 2026 Víctor Moreno de la Torre, psicòleg i orientador educatiu</p>
         <ul class="footer-meta" aria-label="Llicències i versió">
@@ -248,6 +227,33 @@
         </form>
       </div>
     </div>
+  </dialog>
+
+  <dialog class="dialog dialog-narrow" id="feedback-dialog" aria-labelledby="feedback-title">
+    <button type="button" class="icon-btn dialog-close" id="feedback-close" aria-label="Tanca">
+      <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"/></svg>
+    </button>
+    <form class="dialog-form" id="feedback-form" novalidate>
+      <h2 class="dialog-title" id="feedback-title">Problema o suggeriment</h2>
+      <p class="dialog-lead">Avisa d'un error al web o proposa una millora. Si el problema és d'una aplicació concreta, fes-ho des de la seva fitxa.</p>
+      <fieldset class="field">
+        <legend class="field-label">Què vols notificar?</legend>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="tipus" value="Problema"><span>Un problema del web</span></label>
+          <label class="pill"><input type="radio" name="tipus" value="Suggeriment"><span>Un suggeriment</span></label>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label class="field-label" for="feedback-text">Explica-ho breument</label>
+        <textarea class="input" id="feedback-text" rows="4" maxlength="1500"></textarea>
+      </div>
+      <p class="field-hint">S'obrirà GitHub en una pestanya nova amb el text ja escrit; cal un compte gratuït per enviar-ho. Així en queda constància i se'n pot seguir la resposta.</p>
+      <p class="field-error" id="feedback-error" role="alert"></p>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Continua a GitHub</button>
+        <button type="button" class="btn btn-outline" id="feedback-cancel">Cancel·la</button>
+      </div>
+    </form>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>

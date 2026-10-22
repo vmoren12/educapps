@@ -894,6 +894,13 @@ a { color: inherit; }
 .report-login { margin-top: 8px; color: var(--ink-2); font-size: 0.875rem; }
 .report-login a { color: var(--ink); }
 
+.dialog-narrow { width: min(520px, calc(100vw - 32px)); }
+.dialog-form { display: grid; gap: 16px; padding: 28px; }
+.dialog-form .dialog-title { padding-right: 40px; font-size: 1.5rem; }
+.dialog-form .field { border: 0; padding: 0; margin: 0; }
+.dialog-form legend { margin-bottom: 8px; padding: 0; }
+.dialog-lead { margin-top: -6px; color: var(--ink-2); font-size: 0.9375rem; }
+
 /* 9. Peu i utilitats --------------------------------------------------------- */
 .site-footer { border-top: 1px solid var(--line); background: var(--surface); }
 .footer-inner {
@@ -909,10 +916,7 @@ a { color: inherit; }
 .footer-links a { color: var(--ink-2); text-decoration: none; }
 .footer-links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .footer-link-btn { padding: 0; border: 0; background: none; color: var(--ink-2); font-size: inherit; }
-.footer-link-btn:hover, .footer-link-btn[aria-expanded="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-.footer-feedback { grid-column: 1 / -1; max-width: 560px; justify-self: end; width: 100%; }
-.footer-feedback[hidden] { display: none; }
-.footer-feedback .report-form { margin-top: 0; }
+.footer-link-btn:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .footer-note { max-width: 52ch; margin-top: 10px; color: var(--ink-3); font-size: 0.8125rem; }
 .footer-bottom {
   grid-column: 1 / -1;
@@ -1331,9 +1335,9 @@ textarea.input-lg { min-height: 150px; }
   .dialog-actions { padding: 16px 20px 22px; }
   .dialog-actions .btn-primary { flex: 1 1 100%; }
   .dialog-report { padding: 0 20px 20px; }
+  .dialog-form { padding: 24px 20px; }
 
   .footer-inner { grid-template-columns: 1fr; }
-  .footer-feedback { justify-self: stretch; }
 }
 
 @media (hover: none) {
