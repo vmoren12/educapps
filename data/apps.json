@@ -277,6 +277,7 @@
       "nivells": ["infantil", "primaria", "eso"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["gestió d'aula", "sorteig", "temporitzador"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/f2a13f0d-f1f7-472b-b1c4-25c1b0dfd734.webp",
       "afegit": "2026-09-15"
     },
     {
@@ -370,6 +371,35 @@
       "etiquetes": [],
       "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/d2ccfee1-7159-4111-ad71-7cca8d6638c2.webp",
       "afegit": "2026-10-19"
+    },
+    {
+      "id": "lectura-facil",
+      "titol": "Lectura Fàcil",
+      "descripcio": "Eina de lectura per a alumnat nouvingut: llibres de lectura fàcil en català amb la traducció a la llengua de cada alumne.",
+      "url": "https://vmoren12.github.io/lecturafacil/#/",
+      "codi": "https://github.com/vmoren12/lecturafacil",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "llengues",
+      "ambits": ["llengues"],
+      "nivells": ["primaria", "eso", "batxillerat", "fp"],
+      "idiomes": ["ca"],
+      "etiquetes": ["lectura", "llengüa"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/8c49de86-5360-4ba6-b993-2e66ce644af6.webp",
+      "afegit": "2026-10-21"
+    },
+    {
+      "id": "control-soroll",
+      "titol": "Control soroll",
+      "descripcio": "Animació que canvia l'expressió corporal i facial en funció del soroll que captura el micròfon. Configurable.",
+      "url": "https://monstreso.netlify.app/",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "eines",
+      "ambits": ["eines"],
+      "nivells": ["infantil", "primaria", "eso", "batxillerat", "fp"],
+      "idiomes": ["ca"],
+      "etiquetes": ["soroll", "volum"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/6d3c7544-0da2-4dfe-b1b2-397d24f48767.webp",
+      "afegit": "2026-10-21"
     }
   ]
 }
