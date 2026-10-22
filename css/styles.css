@@ -915,6 +915,8 @@ a { color: inherit; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; align-content: start; }
 .footer-links a { color: var(--ink-2); text-decoration: none; }
 .footer-links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.footer-github { display: inline-flex; align-items: center; gap: 6px; }
+.footer-github .icon { width: 14px; height: 14px; }
 .footer-link-btn { padding: 0; border: 0; background: none; color: var(--ink-2); font-size: inherit; }
 .footer-link-btn:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .footer-note { max-width: 52ch; margin-top: 10px; color: var(--ink-3); font-size: 0.8125rem; }
