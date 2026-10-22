@@ -22,8 +22,8 @@ Els scripts 01–03 es poden tornar a executar sense perill.
 | [04_moderador.sql](04_moderador.sql) | Dona el rol de moderador a un correu (cal editar-lo abans) | ☑ |
 | [05_imatges_i_moderacio.sql](05_imatges_i_moderacio.sql) | Imatges de portada (bucket `portades`, 1 MB, carpeta per usuari) i correu del proposant per als moderadors | ☑ |
 | [06_favorits.sql](06_favorits.sql) | Favorits associats al compte (cadascú només veu els seus) | ☑ |
-| [07_diversos_ambits.sql](07_diversos_ambits.sql) | Diversos àmbits per aplicació (columna `ambits`; `ambit` passa a ser el principal i dona el color) | ☐ |
-| [08_mes_ambits.sql](08_mes_ambits.sql) | Àmbits nous: Filosofia i valors, Economia i empresa, Educació física, Tutoria i orientació | ☐ |
+| [07_diversos_ambits.sql](07_diversos_ambits.sql) | Diversos àmbits per aplicació (columna `ambits`; `ambit` passa a ser el principal i dona el color) | ☑ |
+| [08_mes_ambits.sql](08_mes_ambits.sql) | Àmbits nous: Filosofia i valors, Economia i empresa, Educació física, Tutoria i orientació | ☑ |
 
 ## Regles que apliquen
 

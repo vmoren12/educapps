@@ -429,7 +429,7 @@ async function sendReport(event) {
 
 function onDialogClose() {
   state.app = null;
-  document.title = 'EducApps · Aplicacions educatives de la comunitat docent';
+  document.title = 'EducApps · Aplicacions lliures per ensenyar i aprendre';
   writeUrlState(state);
   if (returnFocus && document.contains(returnFocus)) returnFocus.focus();
   returnFocus = null;
