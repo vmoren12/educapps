@@ -1,0 +1,34 @@
+name: Problema o suggeriment
+description: Avisa d'un error al web d'EducApps o proposa una millora.
+title: "[Suggeriment] "
+labels: ["comentari-web"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gràcies per ajudar a millorar EducApps. Si el problema és d'una aplicació concreta del catàleg, fes-ho des de la seva fitxa («Informa d'un problema»).
+
+  - type: dropdown
+    id: tipus
+    attributes:
+      label: Tipus
+      options:
+        - Problema
+        - Suggeriment
+    validations:
+      required: true
+
+  - type: textarea
+    id: descripcio
+    attributes:
+      label: Descripció
+      description: Què passa o què milloraries? Si és un error, explica com reproduir-lo.
+    validations:
+      required: true
+
+  - type: input
+    id: navegador
+    attributes:
+      label: Navegador i dispositiu
+      description: Opcional. Ajuda a reproduir els errors.
+      placeholder: "Ex.: Chrome a Android"

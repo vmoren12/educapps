@@ -155,7 +155,29 @@
         <li><a href="proposa.html">Afegeix la teva aplicació</a></li>
         <li><a href="https://github.com/vmoren12/educapps" target="_blank" rel="noopener noreferrer">Codi font</a></li>
         <li><a href="privacitat.html">Privacitat</a></li>
+        <li><button type="button" class="footer-link-btn" id="feedback-toggle" aria-expanded="false" aria-controls="feedback-panel">Notifica un problema o suggeriment</button></li>
       </ul>
+      <div class="footer-feedback" id="feedback-panel" hidden>
+        <form class="report-form" id="feedback-form" novalidate>
+          <fieldset class="field">
+            <legend class="field-label">Què vols notificar?</legend>
+            <div class="pills">
+              <label class="pill"><input type="radio" name="tipus" value="Problema"><span>Un problema del web</span></label>
+              <label class="pill"><input type="radio" name="tipus" value="Suggeriment"><span>Un suggeriment</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label class="field-label" for="feedback-text">Explica-ho breument</label>
+            <textarea class="input" id="feedback-text" rows="3" maxlength="1500"></textarea>
+          </div>
+          <p class="field-hint">S'obrirà GitHub en una pestanya nova amb el text ja escrit; cal un compte gratuït per enviar-ho. Així en queda constància i se'n pot seguir la resposta.</p>
+          <p class="field-error" id="feedback-error" role="alert"></p>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-sm">Continua a GitHub</button>
+            <button type="button" class="btn btn-outline btn-sm" id="feedback-cancel">Cancel·la</button>
+          </div>
+        </form>
+      </div>
       <div class="footer-bottom">
         <p>© 2026 Víctor Moreno de la Torre, psicòleg i orientador educatiu</p>
         <ul class="footer-meta" aria-label="Llicències i versió">

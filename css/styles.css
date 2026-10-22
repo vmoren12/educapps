@@ -35,9 +35,14 @@
   --c-tecnologia-tint: #e9e7f4;   --c-tecnologia: #574a9c;
   --c-arts-tint: #f5e5eb;         --c-arts: #91375a;
   --c-eines-tint: #e5eef0;        --c-eines: #3b6570;
+  --c-filosofia-tint: #f0e8f2;    --c-filosofia: #74437f;
+  --c-economia-tint: #edf0df;     --c-economia: #5a6522;
+  --c-educacio-fisica-tint: #f8e5e2; --c-educacio-fisica: #a3392b;
+  --c-tutoria-tint: #e2eef7;      --c-tutoria: #2a6488;
 
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  /* Títols: la mateixa lletra que el nom de la capçalera (sans, gruixuda i ajustada) */
+  --font-display: var(--font-sans);
 
   --radius-lg: 18px;
   --radius: 14px;
@@ -75,6 +80,10 @@
     --c-tecnologia-tint: #211f31;   --c-tecnologia: #b3a8ec;
     --c-arts-tint: #2c1c23;         --c-arts: #e79dbb;
     --c-eines-tint: #19252a;        --c-eines: #93c3cf;
+    --c-filosofia-tint: #271d2a;    --c-filosofia: #d1a8db;
+    --c-economia-tint: #22251a;     --c-economia: #c3ce88;
+    --c-educacio-fisica-tint: #2e1c19; --c-educacio-fisica: #f09b8d;
+    --c-tutoria-tint: #172430;      --c-tutoria: #91c5e7;
   }
 }
 
@@ -104,6 +113,10 @@
   --c-tecnologia-tint: #211f31;   --c-tecnologia: #b3a8ec;
   --c-arts-tint: #2c1c23;         --c-arts: #e79dbb;
   --c-eines-tint: #19252a;        --c-eines: #93c3cf;
+  --c-filosofia-tint: #271d2a;    --c-filosofia: #d1a8db;
+  --c-economia-tint: #22251a;     --c-economia: #c3ce88;
+  --c-educacio-fisica-tint: #2e1c19; --c-educacio-fisica: #f09b8d;
+  --c-tutoria-tint: #172430;      --c-tutoria: #91c5e7;
 }
 
 [data-ambit] { --tint: var(--surface-2); --strong: var(--ink-2); }
@@ -114,6 +127,10 @@
 [data-ambit="tecnologia"]   { --tint: var(--c-tecnologia-tint);   --strong: var(--c-tecnologia); }
 [data-ambit="arts"]         { --tint: var(--c-arts-tint);         --strong: var(--c-arts); }
 [data-ambit="eines"]        { --tint: var(--c-eines-tint);        --strong: var(--c-eines); }
+[data-ambit="filosofia"]    { --tint: var(--c-filosofia-tint);    --strong: var(--c-filosofia); }
+[data-ambit="economia"]     { --tint: var(--c-economia-tint);     --strong: var(--c-economia); }
+[data-ambit="educacio-fisica"] { --tint: var(--c-educacio-fisica-tint); --strong: var(--c-educacio-fisica); }
+[data-ambit="tutoria"]      { --tint: var(--c-tutoria-tint);      --strong: var(--c-tutoria); }
 
 /* 2. Base ----------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -304,6 +321,7 @@ a { color: inherit; }
 .brand-mark .logo-bar { fill: var(--accent); }
 .brand-mark .logo-knob { fill: var(--accent-ink); }
 .brand-name {
+  font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 650;
   letter-spacing: -0.03em;
@@ -374,11 +392,11 @@ a { color: inherit; }
 .hero h1 {
   max-width: 24ch;
   margin-inline: auto;
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: clamp(2rem, 5.2vw, 3.5rem);
-  font-weight: 500;
+  font-weight: 650;
   line-height: 1.08;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.035em;
   text-wrap: balance;
 }
 
@@ -705,11 +723,11 @@ a { color: inherit; }
 }
 
 .card-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 650;
   line-height: 1.25;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
 }
 .card-link {
   padding: 0;
@@ -796,7 +814,7 @@ a { color: inherit; }
   margin: 56px auto;
   text-align: center;
 }
-.empty-title { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 500; }
+.empty-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 650; letter-spacing: -0.025em; }
 .empty-text { margin: 10px 0 22px; color: var(--ink-2); }
 .empty[hidden], .load-more[hidden] { display: none; }
 
@@ -832,11 +850,11 @@ a { color: inherit; }
 
 .dialog-body { display: grid; gap: 10px; padding: 24px 28px 8px; }
 .dialog-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 4vw, 2rem);
-  font-weight: 500;
+  font-weight: 650;
   line-height: 1.15;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.03em;
 }
 .dialog-author { color: var(--ink-3); font-size: 0.875rem; }
 .dialog-author a { color: var(--ink-2); text-underline-offset: 3px; }
@@ -885,11 +903,16 @@ a { color: inherit; }
   padding-block: 36px;
   font-size: 0.875rem;
 }
-.footer-brand { font-family: var(--font-serif); font-size: 1.125rem; font-weight: 600; }
+.footer-brand { font-family: var(--font-display); font-size: 1.125rem; font-weight: 650; letter-spacing: -0.025em; }
 .footer-text { max-width: 52ch; margin-top: 6px; color: var(--ink-2); }
 .footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; align-content: start; }
 .footer-links a { color: var(--ink-2); text-decoration: none; }
 .footer-links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.footer-link-btn { padding: 0; border: 0; background: none; color: var(--ink-2); font-size: inherit; }
+.footer-link-btn:hover, .footer-link-btn[aria-expanded="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.footer-feedback { grid-column: 1 / -1; max-width: 560px; justify-self: end; width: 100%; }
+.footer-feedback[hidden] { display: none; }
+.footer-feedback .report-form { margin-top: 0; }
 .footer-note { max-width: 52ch; margin-top: 10px; color: var(--ink-3); font-size: 0.8125rem; }
 .footer-bottom {
   grid-column: 1 / -1;
@@ -934,11 +957,11 @@ a { color: inherit; }
 
 .page-head { display: grid; gap: 8px; margin-bottom: 28px; }
 .page-head h1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: clamp(1.9rem, 4.5vw, 2.6rem);
-  font-weight: 500;
+  font-weight: 650;
   line-height: 1.12;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 .page-lead { max-width: 60ch; color: var(--ink-2); font-size: 1.0625rem; text-wrap: pretty; }
@@ -1130,7 +1153,7 @@ textarea.input-lg { min-height: 150px; }
 .row-cover { width: 56px; height: 56px; overflow: hidden; border-radius: 10px; background: var(--tint); color: var(--strong); }
 .row-cover svg { width: 100%; height: 100%; }
 .row-main { display: grid; gap: 4px; min-width: 0; }
-.row-title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; font-family: var(--font-serif); font-size: 1.125rem; font-weight: 600; }
+.row-title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; font-family: var(--font-display); font-size: 1.125rem; font-weight: 650; letter-spacing: -0.02em; }
 .row-meta { color: var(--ink-3); font-size: 0.8125rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .row-reason { color: var(--ink-2); font-size: 0.875rem; }
 .row-actions { display: flex; gap: 4px; }
@@ -1151,10 +1174,11 @@ textarea.input-lg { min-height: 150px; }
 .prose h2 {
   margin-top: 22px;
   color: var(--ink);
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 1.375rem;
-  font-weight: 600;
+  font-weight: 650;
   line-height: 1.25;
+  letter-spacing: -0.025em;
 }
 .prose h2:first-child { margin-top: 0; }
 .prose strong { color: var(--ink); font-weight: 600; }
@@ -1210,10 +1234,11 @@ textarea.input-lg { min-height: 150px; }
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 12px;
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 1.375rem;
-  font-weight: 600;
+  font-weight: 650;
   line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 .mod-desc { color: var(--ink); }
 .mod-detail { color: var(--ink-2); font-size: 0.9375rem; white-space: pre-line; }
@@ -1308,6 +1333,7 @@ textarea.input-lg { min-height: 150px; }
   .dialog-report { padding: 0 20px 20px; }
 
   .footer-inner { grid-template-columns: 1fr; }
+  .footer-feedback { justify-self: stretch; }
 }
 
 @media (hover: none) {

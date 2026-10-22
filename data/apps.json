@@ -4,8 +4,12 @@
     { "id": "ciencies", "nom": "Ciències" },
     { "id": "llengues", "nom": "Llengües" },
     { "id": "socials", "nom": "Ciències socials" },
+    { "id": "filosofia", "nom": "Filosofia i valors" },
+    { "id": "economia", "nom": "Economia i empresa" },
     { "id": "tecnologia", "nom": "Tecnologia i programació" },
     { "id": "arts", "nom": "Arts i música" },
+    { "id": "educacio-fisica", "nom": "Educació física" },
+    { "id": "tutoria", "nom": "Tutoria i orientació" },
     { "id": "eines", "nom": "Eines d'aula" }
   ],
   "nivells": [

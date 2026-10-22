@@ -45,8 +45,12 @@ body:
         - Ciències
         - Llengües
         - Ciències socials
+        - Filosofia i valors
+        - Economia i empresa
         - Tecnologia i programació
         - Arts i música
+        - Educació física
+        - Tutoria i orientació
         - Eines d'aula
     validations:
       required: true

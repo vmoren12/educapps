@@ -5,6 +5,7 @@ import { buildFacets, updateFacets, renderChips, createCard, setFavoriteButton, 
 import { debounce, plural } from './utils.js';
 import { loadCatalogData } from './data-source.js';
 import { setupShell, showToast } from './shell.js';
+import { setupFeedback } from './feedback.js';
 import { getClient, hasStoredSession, storedUser, friendlyError, SESSION_STORAGE_KEY } from './auth.js';
 
 const PAGE_SIZE = 24;
@@ -76,6 +77,7 @@ init();
 
 async function init() {
   setupShell();
+  setupFeedback();
   applyView(preferences.view);
   showSkeletons();
 
