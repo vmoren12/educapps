@@ -39,6 +39,7 @@
       "nivells": ["primaria", "eso", "batxillerat"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["física", "laboratori virtual", "química", "simulació"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/d46b3f9d-54be-477d-a1ac-55acf2e6fa47.webp",
       "afegit": "2026-01-12"
     },
     {
@@ -53,6 +54,7 @@
       "nivells": ["primaria", "eso", "batxillerat"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["àlgebra", "estadística", "funcions", "geometria"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/02286026-b797-40dd-b1b1-22a6e925df89.webp",
       "afegit": "2026-01-15"
     },
     {
@@ -66,6 +68,7 @@
       "nivells": ["eso", "batxillerat"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["calculadora", "funcions", "gràfics"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/f65d7c48-d14f-467a-997c-95685c8d9c2e.webp",
       "afegit": "2026-02-03"
     },
     {
@@ -81,6 +84,7 @@
       "nivells": ["primaria", "eso"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["blocs", "jocs", "pensament computacional", "programació"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/7a237c15-c60a-4e91-bfa8-982a84cf4c49.webp",
       "afegit": "2026-02-10"
     },
     {
@@ -95,6 +99,7 @@
       "nivells": ["primaria", "eso"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["blocs", "bucles", "condicionals", "programació"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/7e1f6a8e-0904-45d8-908f-0c639bed7fb8.webp",
       "afegit": "2026-02-18"
     },
     {
@@ -107,8 +112,9 @@
       "ambit": "ciencies",
       "ambits": ["ciencies"],
       "nivells": ["primaria", "eso", "batxillerat"],
-      "idiomes": ["en", "es", "fr"],
+      "idiomes": ["es", "en", "fr"],
       "etiquetes": ["astronomia", "constel·lacions", "planetari"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/58abc3a0-9ca4-45d6-8a26-b811edd2b712.webp",
       "afegit": "2026-03-02"
     },
     {
@@ -120,8 +126,9 @@
       "ambit": "arts",
       "ambits": ["arts"],
       "nivells": ["infantil", "primaria", "eso"],
-      "idiomes": ["en", "es", "fr"],
+      "idiomes": ["es", "en", "fr"],
       "etiquetes": ["composició", "música", "ritme", "so"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/d997fa4f-dabe-408d-8076-d1ea26d566ae.webp",
       "afegit": "2026-03-09"
     },
     {
@@ -135,6 +142,7 @@
       "nivells": ["eso", "batxillerat"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["elements", "química", "taula periòdica"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/271d0caa-d78a-4719-b26f-15338e82c9b4.webp",
       "afegit": "2026-03-20"
     },
     {
@@ -147,8 +155,9 @@
       "ambit": "tecnologia",
       "ambits": ["tecnologia"],
       "nivells": ["eso", "batxillerat", "fp"],
-      "idiomes": ["en", "es", "fr"],
+      "idiomes": ["es", "en", "fr"],
       "etiquetes": ["circuits", "electricitat", "electrònica", "simulació"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/790f8e92-247e-48c2-a677-032283a5ee1b.webp",
       "afegit": "2026-04-01"
     },
     {
@@ -162,6 +171,7 @@
       "nivells": ["batxillerat"],
       "idiomes": ["en"],
       "etiquetes": ["cinemàtica", "física", "òptica", "simulació"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/23350a07-12f3-4480-9ea8-37b1b612d5ce.webp",
       "afegit": "2026-04-14"
     },
     {
@@ -176,6 +186,7 @@
       "nivells": ["primaria", "eso", "batxillerat", "fp"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["col·laboració", "esquemes", "mapes conceptuals", "pissarra"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/ad7c0d5d-c64c-4801-8cf0-c14807831455.webp",
       "afegit": "2026-04-22"
     },
     {
@@ -189,6 +200,7 @@
       "nivells": ["primaria", "eso", "batxillerat", "fp"],
       "idiomes": ["ca"],
       "etiquetes": ["català", "escriptura", "gramàtica", "ortografia"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/90d53cf3-f573-4baa-9fa0-c53aea9725b2.webp",
       "afegit": "2026-05-06"
     },
     {
@@ -202,6 +214,7 @@
       "nivells": ["primaria", "eso", "batxillerat", "fp"],
       "idiomes": ["ca"],
       "etiquetes": ["català", "diccionari", "lèxic", "normativa"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/f0597fec-622c-4d93-be32-24f79cf11cad.webp",
       "afegit": "2026-05-12"
     },
     {
@@ -215,6 +228,7 @@
       "nivells": ["infantil", "primaria"],
       "idiomes": ["en"],
       "etiquetes": ["càlcul", "jocs", "manipulables", "numeració"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/b8601dcd-3c1f-4e93-9565-a6ef6c7bdff0.webp",
       "afegit": "2026-05-27"
     },
     {
@@ -228,6 +242,7 @@
       "nivells": ["primaria", "eso", "fp"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["arduino", "disseny 3d", "impressió 3d", "robòtica"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/2f4c6bda-62d2-407b-b260-832e1033b0a9.webp",
       "afegit": "2026-06-08"
     },
     {
@@ -239,8 +254,9 @@
       "ambit": "socials",
       "ambits": ["socials"],
       "nivells": ["eso", "batxillerat"],
-      "idiomes": ["en", "es"],
+      "idiomes": ["es", "en"],
       "etiquetes": ["dades", "demografia", "economia", "estadística"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/549ae670-ab91-468a-8f6f-88c7682d6726.webp",
       "afegit": "2026-06-19"
     },
     {
@@ -255,6 +271,7 @@
       "nivells": ["batxillerat", "fp"],
       "idiomes": ["en"],
       "etiquetes": ["canvi climàtic", "dades", "geografia", "ods"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/fcb35de4-f52a-4787-9aaa-c55f0eb6b192.webp",
       "afegit": "2026-07-03"
     },
     {
@@ -268,6 +285,7 @@
       "nivells": ["primaria", "eso", "batxillerat"],
       "idiomes": ["ca", "es", "en", "fr"],
       "etiquetes": ["història de l'art", "museus", "patrimoni"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/4897f4a9-b49b-4e2b-8f6b-08bd27edc253.webp",
       "afegit": "2026-07-21"
     },
     {
