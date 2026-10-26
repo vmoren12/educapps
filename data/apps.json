@@ -372,8 +372,8 @@
       "url": "https://vmoren12.github.io/tutoria/#/cataleg",
       "codi": "https://github.com/vmoren12/tutoria",
       "autor": { "nom": "Víctor Moreno" },
-      "ambit": "eines",
-      "ambits": ["eines"],
+      "ambit": "tutoria",
+      "ambits": ["tutoria", "eines"],
       "nivells": ["primaria", "eso", "fp"],
       "idiomes": ["ca", "es"],
       "etiquetes": ["dinàmica", "dinàmiques", "tutoria"],
@@ -422,6 +422,22 @@
       "etiquetes": ["soroll", "volum"],
       "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/6d3c7544-0da2-4dfe-b1b2-397d24f48767.webp",
       "afegit": "2026-10-21"
+    },
+    {
+      "id": "pictapp",
+      "titol": "Pictapp",
+      "descripcio": "Aplicació web per al docent, projectada a la pissarra digital, que estructura la sessió de manera visual i previsible.",
+      "detall": "Aplicació web per al docent, projectada a la pissarra digital, que estructura la sessió de manera visual i previsible. Està pensada especialment per a l'alumnat amb TEA, però s'aplica a tot el grup seguint el Disseny Universal per a l'Aprenentatge (DUA): mai no singularitza cap alumne davant la classe.",
+      "url": "https://vmoren12.github.io/teapp/",
+      "codi": "https://github.com/vmoren12/teapp",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "eines",
+      "ambits": ["eines"],
+      "nivells": ["primaria", "eso", "batxillerat", "fp"],
+      "idiomes": ["ca"],
+      "etiquetes": ["arasaac", "autisme", "pictogrames", "tea"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/ebb8af4c-9611-44d2-84d3-8899b0fa2459.webp",
+      "afegit": "2026-10-25"
     }
   ]
 }
