@@ -438,6 +438,21 @@
       "etiquetes": ["arasaac", "autisme", "pictogrames", "tea"],
       "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/ebb8af4c-9611-44d2-84d3-8899b0fa2459.webp",
       "afegit": "2026-10-25"
+    },
+    {
+      "id": "cercles-2-0",
+      "titol": "Cercles 2.0",
+      "descripcio": "Ruletes de preguntes per a dinàmiques de cercle a l'aula.",
+      "url": "https://vmoren12.github.io/cercles/",
+      "codi": "https://github.com/vmoren12/cercles",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "tutoria",
+      "ambits": ["tutoria", "eines"],
+      "nivells": ["infantil", "primaria", "eso", "batxillerat", "fp"],
+      "idiomes": ["ca"],
+      "etiquetes": ["cercles", "conversa", "debat", "diàleg", "paraula", "restauració", "tutoria"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/a9735e1d-e48c-48d0-8566-ebe6670c099e.webp",
+      "afegit": "2026-10-26"
     }
   ]
 }
