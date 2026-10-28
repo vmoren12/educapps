@@ -381,20 +381,6 @@
       "afegit": "2026-10-18"
     },
     {
-      "id": "cercles-de-conversa",
-      "titol": "Cercles de conversa",
-      "descripcio": "Recull de temes i preguntes per dinamitzar converses, cercles de diàleg, coneixement mutu de l'alumnat, etc. Permet selecció aleatòria o planificar una sessió.",
-      "url": "https://cercles.netlify.app/",
-      "autor": { "nom": "Víctor Moreno" },
-      "ambit": "llengues",
-      "ambits": ["llengues", "tutoria", "eines"],
-      "nivells": ["primaria", "eso", "batxillerat", "fp"],
-      "idiomes": ["ca"],
-      "etiquetes": [],
-      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/d2ccfee1-7159-4111-ad71-7cca8d6638c2.webp",
-      "afegit": "2026-10-19"
-    },
-    {
       "id": "lectura-facil",
       "titol": "Lectura Fàcil",
       "descripcio": "Eina de lectura per a alumnat nouvingut: llibres de lectura fàcil en català amb la traducció a la llengua de cada alumne.",
@@ -441,7 +427,7 @@
     },
     {
       "id": "cercles-2-0",
-      "titol": "Cercles 2.0",
+      "titol": "Cercles de conversa",
       "descripcio": "Ruletes de preguntes per a dinàmiques de cercle a l'aula.",
       "url": "https://vmoren12.github.io/cercles/",
       "codi": "https://github.com/vmoren12/cercles",
