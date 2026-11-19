@@ -439,6 +439,21 @@
       "etiquetes": ["cercles", "conversa", "debat", "diàleg", "paraula", "restauració", "tutoria"],
       "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/a9735e1d-e48c-48d0-8566-ebe6670c099e.webp",
       "afegit": "2026-10-26"
+    },
+    {
+      "id": "apptatives",
+      "titol": "Apptatives",
+      "descripcio": "Aplicatiu web per assignar optatives a l’alumnat a partir de les seves preferències, les places de cada matèria i els criteris del centre.",
+      "url": "https://vmoren12.github.io/optatives/",
+      "codi": "https://github.com/vmoren12/optatives",
+      "autor": { "nom": "Víctor Moreno" },
+      "ambit": "tutoria",
+      "ambits": ["tutoria", "eines"],
+      "nivells": ["primaria", "eso", "batxillerat", "fp"],
+      "idiomes": ["ca"],
+      "etiquetes": ["distribució", "optativas", "optatives", "triar"],
+      "imatge": "https://vvvsuksrsczuvmswmjaw.supabase.co/storage/v1/object/public/portades/17f78951-5ec5-424d-9b44-c7ebf0ae0684/87a97316-c18e-4416-9131-05838217c935.webp",
+      "afegit": "2026-11-18"
     }
   ]
 }
